@@ -82,6 +82,11 @@ class Grafo:
         nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto1\\Archivos\\" + nombre_archivo
         with open(nombre_archivo, 'w') as f:
             f.write("graph G {\n")
+            
+            for nodo in self.lista_nodos:
+                f.write (f"n{nodo.id};\n")
+                
             for arista in self.lista_aristas:
-                f.write(f"  {arista.nodo_origen} -- {arista.nodo_destino};\n")
+                f.write(f"{arista.nodo_origen} -- {arista.nodo_destino};\n")
             f.write("}\n")
+

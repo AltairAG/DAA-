@@ -22,7 +22,7 @@ filas = 24
 columnas = 21
 
 # Malla
-#grafo = grafoMalla(filas, columnas)
+grafo = grafoMalla(filas, columnas)
 
 # Erdos-Renyi
 #grafoErdosRenyi(n, m)
