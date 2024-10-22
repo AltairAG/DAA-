@@ -2,6 +2,7 @@ import csv
 import pandas as pd
 from Clases.Nodo import Nodo
 from Clases.Arista import Arista
+from collections import deque
 
 # Clase para representar el Grafo
 class Grafo:
@@ -35,6 +36,67 @@ class Grafo:
                 combinaciones.append((i, j))
         
         return combinaciones
+    
+    def BFS(self, s):
+        # BFS: Utiliza una cola (FIFO) para explorar el grafo en anchura
+        visitados = set()
+        cola = deque([s])  # Cola para nodos por visitar, comienza con el nodo s
+        arbol_bfs = []  # Lista para almacenar el árbol inducido por BFS
+        
+        visitados.add(s)
+        
+        while cola:
+            nodo_actual = cola.popleft()  # Extraer el nodo actual
+            for arista in self.lista_aristas:
+                # Si la arista conecta con un nodo aún no visitado
+                if arista.nodo_origen == nodo_actual and arista.nodo_destino not in visitados:
+                    cola.append(arista.nodo_destino)
+                    visitados.add(arista.nodo_destino)
+                    arbol_bfs.append((nodo_actual, arista.nodo_destino))
+                elif arista.nodo_destino == nodo_actual and arista.nodo_origen not in visitados:
+                    cola.append(arista.nodo_origen)
+                    visitados.add(arista.nodo_origen)
+                    arbol_bfs.append((nodo_actual, arista.nodo_origen))
+        
+        return arbol_bfs  # Devuelve el árbol en forma de lista de aristas
+
+    def DFS_R(self, s):
+        # DFS recursivo: Utiliza recursión para explorar el grafo en profundidad
+        visitados = set()
+        arbol_dfs = []
+        
+        def dfs_recursivo(nodo_actual):
+            visitados.add(nodo_actual)
+            for arista in self.lista_aristas:
+                if arista.nodo_origen == nodo_actual and arista.nodo_destino not in visitados:
+                    arbol_dfs.append((nodo_actual, arista.nodo_destino))
+                    dfs_recursivo(arista.nodo_destino)
+                elif arista.nodo_destino == nodo_actual and arista.nodo_origen not in visitados:
+                    arbol_dfs.append((nodo_actual, arista.nodo_origen))
+                    dfs_recursivo(arista.nodo_origen)
+        
+        dfs_recursivo(s)
+        return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
+    
+    def DFS_I(self, s):
+        # DFS iterativo: Utiliza una pila (LIFO) para explorar el grafo en profundidad
+        visitados = set()
+        pila = [s]  # Pila de nodos por visitar
+        arbol_dfs = []
+        
+        while pila:
+            nodo_actual = pila.pop()  # Extraer el nodo actual de la pila
+            if nodo_actual not in visitados:
+                visitados.add(nodo_actual)
+                for arista in self.lista_aristas:
+                    if arista.nodo_origen == nodo_actual and arista.nodo_destino not in visitados:
+                        pila.append(arista.nodo_destino)
+                        arbol_dfs.append((nodo_actual, arista.nodo_destino))
+                    elif arista.nodo_destino == nodo_actual and arista.nodo_origen not in visitados:
+                        pila.append(arista.nodo_origen)
+                        arbol_dfs.append((nodo_actual, arista.nodo_origen))
+        
+        return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
 
 
 
@@ -84,7 +146,7 @@ class Grafo:
             f.write("graph G {\n")
             
             for nodo in self.lista_nodos:
-                f.write (f"n{nodo.id};\n")
+                f.write (f"{nodo.id};\n")
                 
             for arista in self.lista_aristas:
                 f.write(f"{arista.nodo_origen} -- {arista.nodo_destino};\n")
