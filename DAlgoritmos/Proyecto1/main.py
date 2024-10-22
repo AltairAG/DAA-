@@ -8,6 +8,8 @@ from Funciones.gilbert import grafoGilbert
 from Funciones.geografico_simple import grafoGeografico
 from Funciones.barabasi_albert import grafoBarabasiAlbert
 from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
+from Funciones.BFS import BFS
+from Funciones.DFS import DFS_I, DFS_R
 
 
 
