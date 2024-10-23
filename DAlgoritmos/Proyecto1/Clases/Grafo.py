@@ -37,6 +37,12 @@ class Grafo:
         
         return combinaciones
     
+    
+    
+    
+    
+    
+    
     def BFS(self, s):
         # BFS: Utiliza una cola (FIFO) para explorar el grafo en anchura
         visitados = set()
@@ -58,6 +64,10 @@ class Grafo:
                     visitados.add(arista.nodo_origen)
                     arbol_bfs.append((nodo_actual, arista.nodo_origen))
         
+        print("\nÁrbol BFS:\n", arbol_bfs)
+        self.guardarBFS_DFS(arbol_bfs, "BFS")
+        
+        
         return arbol_bfs  # Devuelve el árbol en forma de lista de aristas
 
     def DFS_R(self, s):
@@ -76,6 +86,10 @@ class Grafo:
                     dfs_recursivo(arista.nodo_origen)
         
         dfs_recursivo(s)
+        
+        print("\nÁrbol DFS_R:\n", arbol_dfs)
+        self.guardarBFS_DFS(arbol_dfs, "DFS_R")
+        
         return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
     
     def DFS_I(self, s):
@@ -96,8 +110,10 @@ class Grafo:
                         pila.append(arista.nodo_origen)
                         arbol_dfs.append((nodo_actual, arista.nodo_origen))
         
-        return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
+        print("\nÁrbol DFS_I:\n", arbol_dfs)
+        self.guardarBFS_DFS(arbol_dfs, "DFS_I")
 
+        return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
 
 
 
@@ -151,4 +167,13 @@ class Grafo:
             for arista in self.lista_aristas:
                 f.write(f"{arista.nodo_origen} -- {arista.nodo_destino};\n")
             f.write("}\n")
-
+    
+    def guardarBFS_DFS(self, aristas, nombreAlgo):
+    # Escribir el árbol BFS en formato Graphviz (.gv)
+        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto1\\Archivos\\" + nombreAlgo + ".gv"
+        with open(nombre_archivo, 'w') as f:
+            f.write("digraph BFS_Tree {\n")
+            for arista in aristas:
+                f.write(f'  {arista[0]} -- {arista[1]};\n')
+            f.write("}\n")
+            

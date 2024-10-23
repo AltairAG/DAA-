@@ -29,6 +29,7 @@ def grafoMalla(filas, columnas, dirigido=False):
     grafo1.imprimir_lista_aristas()  # Imprimir aristas del grafo
 #    grafo1.guardar_csv("Malla\\Malla.csv")  # Guardar en CSV
     grafo1.guardar_graphviz("Malla\\Malla.gv")  # Guardar en formato GraphViz
+    
 
     return grafo1
 

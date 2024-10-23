@@ -19,23 +19,43 @@ m = 60
 p = .5
 r = 1
 d = 3
-filas = 5
-columnas = 6
+filas = 3
+columnas = 4
 
 # Malla
-grafo = grafoMalla(filas, columnas)
+# grafo = grafoMalla(filas, columnas)
+# arbol = grafo.BFS(4)                  #BFS
+# arbol = grafo.DFS_R(4)                #DFSR
+# arbol = grafo.DFS_I(4)                #DFSI
+
 
 # Erdos-Renyi
-#grafoErdosRenyi(n, m)
+# grafo = grafoErdosRenyi(n, m)
+# arbol = grafo.BFS(4)                  #BFS
+# arbol = grafo.DFS_R(4)                #DFSR
+# arbol = grafo.DFS_I(4)                #DFSI
 
 # Gilbert
-#grafoGilbert(n, p)
+# grafo = grafoGilbert(n, p)
+# arbol = grafo.BFS(4)                  #BFS
+# arbol = grafo.DFS_R(4)                #DFSR
+# arbol = grafo.DFS_I(4)                #DFSI
 
 # Geográfico
-#grafoGeografico(n, r)
+#grafo = grafoGeografico(n, r)
+# arbol = grafo.BFS(4)                  #BFS
+# arbol = grafo.DFS_R(4)                #DFSR
+# arbol = grafo.DFS_I(4)                #DFSI
 
 # Barabasi-Albert
-#grafoBarabasiAlbert(n, d)
+# grafo = grafoBarabasiAlbert(n, d)
+# arbol = grafo.BFS(4)                  #BFS
+# arbol = grafo.DFS_R(4)                #DFSR
+# arbol = grafo.DFS_I(4)                #DFSI
 
 # Dorogovtsev-Mendes
-#grafoDorogovtsevMendes(n)
+# grafo = grafoDorogovtsevMendes(n)
+# arbol = grafo.BFS(4)                  #BFS
+# arbol = grafo.DFS_R(4)                #DFSR
+# arbol = grafo.DFS_I(4)                #DFSI
+
