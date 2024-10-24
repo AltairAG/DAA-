@@ -153,7 +153,7 @@ class Grafo:
     # Métodos para guardar los archivos:
     def guardar_csv(self, nombre_archivo):
         
-        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombre_archivo
+        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto1\\Archivos\\" + nombre_archivo
         # Crear una lista de conexiones (tuplas de origen y destino)
         conexiones = [(arista.nodo_origen, arista.nodo_destino) for arista in self.lista_aristas]
 
@@ -164,7 +164,7 @@ class Grafo:
         grafo_df.to_csv(nombre_archivo, index=False, header=True, quoting=csv.QUOTE_NONNUMERIC)
 
     def guardar_graphviz(self, nombre_archivo):
-        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombre_archivo
+        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto1\\Archivos\\" + nombre_archivo
         with open(nombre_archivo, 'w') as f:
             f.write("graph G {\n")
             
@@ -177,7 +177,7 @@ class Grafo:
     
     def guardarBFS_DFS(self, aristas, nombreAlgo):
     # Escribir el árbol BFS en formato Graphviz (.gv)
-        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombreAlgo + ".gv"
+        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto1\\Archivos\\" + nombreAlgo + ".gv"
         with open(nombre_archivo, 'w') as f:
             f.write("digraph BFS_Tree {\n")
             for arista in aristas:
