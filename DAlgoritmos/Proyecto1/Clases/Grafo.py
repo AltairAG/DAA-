@@ -36,6 +36,13 @@ class Grafo:
                 combinaciones.append((i, j))
         
         return combinaciones
+    def existe_arista(self, nodo1, nodo2):
+        # Recorremos la lista de aristas para ver si existe la arista nodo1 -> nodo2 o nodo2 -> nodo1
+        for arista in self.lista_aristas:
+            if (arista.nodo_origen == nodo1 and arista.nodo_destino == nodo2) or \
+               (arista.nodo_origen == nodo2 and arista.nodo_destino == nodo1):
+                return True
+        return False
     
     
     

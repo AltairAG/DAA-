@@ -23,7 +23,7 @@ filas = 3
 columnas = 4
 
 # Malla
-# grafo = grafoMalla(filas, columnas)
+grafo = grafoMalla(filas, columnas)
 # arbol = grafo.BFS(4)                  #BFS
 # arbol = grafo.DFS_R(4)                #DFSR
 # arbol = grafo.DFS_I(4)                #DFSI
