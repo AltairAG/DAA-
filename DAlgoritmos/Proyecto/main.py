@@ -23,10 +23,10 @@ filas = 5             #30 = 5x6      100 = 9x12       500 = 25x20
 columnas = 6
 
 # Malla
-grafo = grafoMalla(filas, columnas)
+# grafo = grafoMalla(filas, columnas)
 # arbol = grafo.BFS(15)                  #BFS
 # arbol = grafo.DFS_R(12)                #DFSR
-arbol = grafo.DFS_I(3)                #DFSI
+# arbol = grafo.DFS_I(3)                #DFSI
 
 
 # Erdos-Renyi
