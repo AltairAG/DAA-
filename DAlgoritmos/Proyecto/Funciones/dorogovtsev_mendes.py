@@ -19,7 +19,8 @@ def grafoDorogovtsevMendes(n, dirigido=False):
         grafo.crear_aristas(nuevo_nodo, arista_aleatoria.nodo_origen)
         grafo.crear_aristas(nuevo_nodo, arista_aleatoria.nodo_destino)
 
+
     grafo.imprimir_lista_aristas()
-#    grafo.guardar_csv("DorogovtsevMendes\\DorogovtsevMendes.csv")
+#    grafo.guardar_csv("DorogovtsevMendes.csv")
     grafo.guardar_graphviz("DorogovtsevMendes\\DorogovtsevMendes.gv")
-    return grafo
+    return grafo 
