@@ -26,5 +26,5 @@ def grafoErdosRenyi(n, m, dirigido=False):
 
     grafo.imprimir_lista_aristas()  # Imprimir aristas del grafo
 #    grafo.guardar_csv("ErdosRenyi\\ErdosRenyi.csv")
-    grafo.guardar_graphviz("ErdosRenyi\\ErdosRenyi.gv")  # Guardar en formato GraphViz
+    grafo.guardar_graphviz("ErdosRenyi.gv")  # Guardar en formato GraphViz
     return grafo

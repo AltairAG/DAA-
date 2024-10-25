@@ -14,7 +14,7 @@ from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
 
 
 # Variables para los modelos
-n = 500
+n = 30
 m = 60
 p = .5
 r = 1
@@ -25,8 +25,8 @@ columnas = 6
 # Malla
 grafo = grafoMalla(filas, columnas)
 # arbol = grafo.BFS(15)                  #BFS
-# arbol = grafo.DFS_R(12)                #DFSR
-arbol = grafo.DFS_I(3)                #DFSI
+arbol = grafo.DFS_R(12)                #DFSR
+# arbol = grafo.DFS_I(3)                #DFSI
 
 
 # Erdos-Renyi

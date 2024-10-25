@@ -78,49 +78,63 @@ class Grafo:
         return arbol_bfs  # Devuelve el árbol en forma de lista de aristas
 
     def DFS_R(self, s):
-        # DFS recursivo: Utiliza recursión para explorar el grafo en profundidad
+        # DFS recursivo: utiliza recursión para explorar el grafo en profundidad
         visitados = set()
         arbol_dfs = []
-        
+
+        # Función auxiliar recursiva para DFS
         def dfs_recursivo(nodo_actual):
             visitados.add(nodo_actual)
             for arista in self.lista_aristas:
+                # Explora desde nodo_actual al nodo destino si no ha sido visitado
                 if arista.nodo_origen == nodo_actual and arista.nodo_destino not in visitados:
-                    arbol_dfs.append((nodo_actual, arista.nodo_destino))
-                    dfs_recursivo(arista.nodo_destino)
+                    arbol_dfs.append((nodo_actual, arista.nodo_destino))  # Añade la arista al árbol
+                    dfs_recursivo(arista.nodo_destino)  # Llamada recursiva al nodo destino
+                # Explora desde nodo_actual al nodo origen (en caso de grafo no dirigido)
                 elif arista.nodo_destino == nodo_actual and arista.nodo_origen not in visitados:
-                    arbol_dfs.append((nodo_actual, arista.nodo_origen))
-                    dfs_recursivo(arista.nodo_origen)
-        
+                    arbol_dfs.append((nodo_actual, arista.nodo_origen))  # Añade la arista al árbol
+                    dfs_recursivo(arista.nodo_origen)  # Llamada recursiva al nodo origen
+
+        # Llamada inicial a la función recursiva
         dfs_recursivo(s)
-        
+
+        # Mostrar y guardar el árbol DFS generado
         print("\nÁrbol DFS_R:\n", arbol_dfs)
         self.guardarBFS_DFS(arbol_dfs, "DFS_R")
+
+        return arbol_dfs  # Retorna el árbol DFS
+
         
-        return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
     
     def DFS_I(self, s):
-        # DFS iterativo: Utiliza una pila (LIFO) para explorar el grafo en profundidad
+        # DFS iterativo: utiliza una pila (LIFO) para explorar el grafo en profundidad
         visitados = set()
-        pila = [s]  # Pila de nodos por visitar
-        arbol_dfs = []
-        
+        pila = [(s, None)]  # Pila de nodos por visitar, incluyendo el nodo y el nodo anterior (padre)
+        arbol_dfs = []  # Para almacenar las aristas del árbol DFS
+
         while pila:
-            nodo_actual = pila.pop()  # Extraer el nodo actual de la pila
+            nodo_actual, padre = pila.pop()  # Extraer el nodo actual y su nodo padre
+
             if nodo_actual not in visitados:
                 visitados.add(nodo_actual)
+
+                if padre is not None:
+                    # Añadir al árbol DFS solo si existe un padre, es decir, no es el nodo raíz
+                    arbol_dfs.append((padre, nodo_actual))
+
+                # Explorar las aristas salientes del nodo actual
                 for arista in self.lista_aristas:
                     if arista.nodo_origen == nodo_actual and arista.nodo_destino not in visitados:
-                        pila.append(arista.nodo_destino)
-                        arbol_dfs.append((nodo_actual, arista.nodo_destino))
+                        pila.append((arista.nodo_destino, nodo_actual))
                     elif arista.nodo_destino == nodo_actual and arista.nodo_origen not in visitados:
-                        pila.append(arista.nodo_origen)
-                        arbol_dfs.append((nodo_actual, arista.nodo_origen))
-        
-        print("\nÁrbol DFS_I:\n", arbol_dfs)
+                        pila.append((arista.nodo_origen, nodo_actual))
+
+        # Guardar el árbol DFS en un archivo CSV
         self.guardarBFS_DFS(arbol_dfs, "DFS_I")
 
+        print("\nÁrbol DFS_I:\n", arbol_dfs)
         return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
+
 
 
 
