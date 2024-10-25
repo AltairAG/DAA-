@@ -3,12 +3,6 @@ import random
 
 # Función para Modelo Gn de Dorogovtsev-Mendes
 def grafoDorogovtsevMendes(n, dirigido=False):
-    """
-    Genera un grafo aleatorio con el modelo de Dorogovtsev-Mendes.
-    :param n: número de nodos (≥ 3)
-    :param dirigido: el grafo es dirigido?
-    :return: grafo generado
-    """
     if n < 3:
         raise ValueError("El número de nodos debe ser al menos 3 para aplicar el modelo Dorogovtsev-Mendes.")
     
