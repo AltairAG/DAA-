@@ -54,8 +54,8 @@ columnas = 20
 # arbol = grafo.DFS_R(15)                #DFSR
 
 # Dorogovtsev-Mendes
-grafo = grafoDorogovtsevMendes(n)
+# grafo = grafoDorogovtsevMendes(n)
 # arbol = grafo.BFS(15)                  #BFS
 # arbol = grafo.DFS_I(250)                #DFSI
-arbol = grafo.DFS_R(50)                #DFSR
+# arbol = grafo.DFS_R(50)                #DFSR
 
