@@ -28,5 +28,5 @@ def grafoDorogovtsevMendes(n, dirigido=False):
         grafo.crear_aristas(nuevo_nodo, n2)
     
     grafo.imprimir_lista_aristas()  # Imprimir las aristas del grafo
-    grafo.guardar_graphviz("DorogovtsevMendes.gv")  # Guardar en formato GraphViz
+    grafo.guardar_graphviz("DorogovtsevMendes.gv")  # Guardar en formato GraphViz actual
     return grafo
