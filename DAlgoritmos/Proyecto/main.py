@@ -17,16 +17,16 @@ from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
 n = 30
 m = 60
 p = .5
-r = 1
+r = 2.5
 d = 3
-filas = 5             #30 = 5x6      100 = 9x12       500 = 25x20   
-columnas = 6
+filas = 25             #30 = 5x6      100 = 9x12       500 = 25x20   
+columnas = 20
 
 # Malla
-grafo = grafoMalla(filas, columnas)
+# grafo = grafoMalla(filas, columnas)
 # arbol = grafo.BFS(15)                  #BFS
-arbol = grafo.DFS_R(12)                #DFSR
-# arbol = grafo.DFS_I(3)                #DFSI
+# arbol = grafo.DFS_R(12)                #DFSR
+# arbol = grafo.DFS_I(200)                #DFSI
 
 
 # Erdos-Renyi
@@ -37,25 +37,25 @@ arbol = grafo.DFS_R(12)                #DFSR
 
 # Gilbert
 # grafo = grafoGilbert(n, p)
-# arbol = grafo.BFS(4)                  #BFS
-# arbol = grafo.DFS_R(4)                #DFSR
-# arbol = grafo.DFS_I(4)                #DFSI
+# arbol = grafo.BFS(15)                  #BFS
+# arbol = grafo.DFS_R(29)                #DFSR
+# arbol = grafo.DFS_I(15)                #DFSI
 
 # Geográfico
-#grafo = grafoGeografico(n, r)
-# arbol = grafo.BFS(4)                  #BFS
-# arbol = grafo.DFS_R(4)                #DFSR
-# arbol = grafo.DFS_I(4)                #DFSI
+# grafo = grafoGeografico(n, r)
+# arbol = grafo.BFS(15)                  #BFS
+# arbol = grafo.DFS_I(15)                #DFSI
+# arbol = grafo.DFS_R(29)                #DFSR
 
 # Barabasi-Albert
 # grafo = grafoBarabasiAlbert(n, d)
-# arbol = grafo.BFS(4)                  #BFS
-# arbol = grafo.DFS_R(4)                #DFSR
-# arbol = grafo.DFS_I(4)                #DFSI
+# arbol = grafo.BFS(15)                  #BFS
+# arbol = grafo.DFS_I(15)                #DFSI
+# arbol = grafo.DFS_R(15)                #DFSR
 
 # Dorogovtsev-Mendes
-# grafo = grafoDorogovtsevMendes(n)
-# arbol = grafo.BFS(4)                  #BFS
-# arbol = grafo.DFS_R(4)                #DFSR
-# arbol = grafo.DFS_I(4)                #DFSI
+grafo = grafoDorogovtsevMendes(n)
+arbol = grafo.BFS(15)                  #BFS
+# arbol = grafo.DFS_I(15)                #DFSI
+# arbol = grafo.DFS_R(15)                #DFSR
 

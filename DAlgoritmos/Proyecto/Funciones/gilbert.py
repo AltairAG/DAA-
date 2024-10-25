@@ -39,5 +39,5 @@ def grafoGilbert(n, p, dirigido=False):
 
     grafo.imprimir_lista_aristas()  # Imprimir aristas del grafo
 #    grafo.guardar_csv("Gilbert\\Gilbert.csv")
-    grafo.guardar_graphviz("Gilbert\\Gilbert.gv")  # Guardar en formato GraphViz
+    grafo.guardar_graphviz("Gilbert.gv")  # Guardar en formato GraphViz
     return grafo

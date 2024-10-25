@@ -27,7 +27,7 @@ def grafoGeografico(n, r, dirigido=False):
 
     grafo.imprimir_lista_aristas()  # Imprimir aristas del grafo
 #   grafo.guardar_csv("Geografico_simple\\Geografico.csv")
-    grafo.guardar_graphviz("Geografico_simple\\Geografico.gv")  # Guardar en formato GraphViz
+    grafo.guardar_graphviz("Geografico.gv")  # Guardar en formato GraphViz
     
     
     return grafo

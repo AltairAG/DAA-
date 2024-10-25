@@ -27,5 +27,5 @@ def grafoBarabasiAlbert(n, d, dirigido=False):
 
     grafo.imprimir_lista_aristas()
 #    grafo.guardar_csv("BarabasiAlbert\\BarabasiAlbert.csv")
-    grafo.guardar_graphviz("BarabasiAlbert\\BarabasiAlbert.gv")
+    grafo.guardar_graphviz("BarabasiAlbert.gv")
     return grafo
