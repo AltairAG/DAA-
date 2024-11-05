@@ -134,6 +134,96 @@ class Grafo:
 
         print("\nÁrbol DFS_I:\n", arbol_dfs)
         return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
+    
+    
+    def dijkstra(self, s):
+        # Inicializar distancias con infinito y el nodo fuente con distancia 0
+        distancias = {nodo.id: float('inf') for nodo in self.lista_nodos}
+        distancias[s] = 0
+        predecesores = {nodo.id: None for nodo in self.lista_nodos}  # Para rastrear la ruta óptima
+        visitados = set()
+        
+        # Mientras haya nodos no visitados
+        while len(visitados) < len(self.lista_nodos):
+            # Encontrar el nodo no visitado con la menor distancia actual
+            u = None
+            u_distancia = float('inf')
+            for nodo_id, distancia in distancias.items():
+                if nodo_id not in visitados and distancia < u_distancia:
+                    u = nodo_id
+                    u_distancia = distancia
+            
+            # Si no hay más nodos accesibles, terminamos
+            if u is None:
+                break
+
+            # Marcar el nodo actual como visitado
+            visitados.add(u)
+            
+            # Actualizar distancias de los vecinos del nodo actual
+            for arista in self.lista_aristas:
+                # Determinar el nodo vecino y el peso de la arista
+                if arista.nodo_origen == u and arista.nodo_destino not in visitados:
+                    v = arista.nodo_destino
+                    peso = arista.peso if arista.peso is not None else 1  # Asignar peso predeterminado si es None
+                    nueva_distancia = distancias[u] + peso
+                    if nueva_distancia < distancias[v]:
+                        distancias[v] = nueva_distancia
+                        predecesores[v] = u  # Actualizar el predecesor
+                elif arista.nodo_destino == u and arista.nodo_origen not in visitados:
+                    v = arista.nodo_origen
+                    peso = arista.peso if arista.peso is not None else 1  # Asignar peso predeterminado si es None
+                    nueva_distancia = distancias[u] + peso
+                    if nueva_distancia < distancias[v]:
+                        distancias[v] = nueva_distancia
+                        predecesores[v] = u  # Actualizar el predecesor
+        
+        # Renombrar nodos con la distancia calculada desde el nodo fuente
+        for nodo in self.lista_nodos:
+            if distancias[nodo.id] != float('inf'):
+                nodo.id = f"{nodo.id} ({distancias[nodo.id]:.2f})"
+            else:
+                nodo.id = f"{nodo.id} (Inf)"
+
+        # Guardar el grafo calculado en un archivo, resaltando la ruta óptima
+        self.guardar_grafo_calculado("Dijkstra_Result", s, predecesores)
+        
+        return distancias
+
+    def guardar_grafo_calculado(self, nombre_archivo, nodo_inicio, predecesores):
+        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombre_archivo + ".gv"
+        
+        # Construir la ruta óptima usando los predecesores
+        ruta_optima = set()
+        for nodo_id in predecesores:
+            nodo_actual = nodo_id
+            while nodo_actual is not None and predecesores[nodo_actual] is not None:
+                ruta_optima.add((predecesores[nodo_actual], nodo_actual))
+                nodo_actual = predecesores[nodo_actual]
+
+        with open(nombre_archivo, 'w') as f:
+            f.write("digraph Dijkstra_Tree {\n")
+            
+            # Colorear los nodos de inicio y destino, y mostrar el ID con la distancia en el label
+            for nodo in self.lista_nodos:
+                nodo_id = nodo.id.split(" ")[0]  # Extraer solo el ID sin la distancia
+                label = nodo.id  # El ID ya tiene la distancia calculada como "(distancia)"
+                color = "blue" if nodo_id == str(nodo_inicio) else "green" if nodo.id in [str(dest[1]) for dest in ruta_optima] else "black"
+                f.write(f'  {nodo_id} [label="{label}", color="{color}", style=filled];\n')
+            
+            # Colorear las aristas que pertenecen a la ruta óptima en azul
+            for arista in self.lista_aristas:
+                origen_id = arista.nodo_origen
+                destino_id = arista.nodo_destino
+                color = "blue" if (origen_id, destino_id) in ruta_optima or (destino_id, origen_id) in ruta_optima else "black"
+                f.write(f'  {origen_id} -> {destino_id} [color="{color}"];\n')
+            
+            f.write("}\n")
+
+
+
+        
+        
 
 
 
