@@ -14,7 +14,7 @@ from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
 
 
 # Variables para los modelos
-n = 500
+n = 15
 m = 60
 p = .5
 r = 2.5
@@ -42,7 +42,7 @@ columnas = 20
 # arbol = grafo.DFS_I(15)                #DFSI
 
 # Geográfico
-# grafo = grafoGeografico(n, r)
+grafo = grafoGeografico(n, r)
 # arbol = grafo.BFS(15)                  #BFS
 # arbol = grafo.DFS_I(15)                #DFSI
 # arbol = grafo.DFS_R(29)                #DFSR
