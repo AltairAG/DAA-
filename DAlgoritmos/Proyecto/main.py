@@ -14,10 +14,10 @@ from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
 
 
 # Variables para los modelos
-n = 15
+n = 50
 m = 30
 p = .5
-r = 5
+r = 2.5
 d = 3
 filas = 2            #30 = 5x6      100 = 9x12       500 = 25x20   
 columnas = 4
@@ -51,6 +51,8 @@ grafo = grafoGeografico(n, r)
 # arbol = grafo.DFS_R(29)                 #DFSR
 arbol = grafo.dijkstra(4)               #Dijkstra
 
+
+
 # Barabasi-Albert
 # grafo = grafoBarabasiAlbert(n, d)
 # arbol = grafo.BFS(15)                   #BFS
@@ -64,3 +66,7 @@ arbol = grafo.dijkstra(4)               #Dijkstra
 # arbol = grafo.DFS_I(250)                #DFSI
 # arbol = grafo.DFS_R(50)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
+
+
+
+
