@@ -55,8 +55,11 @@ class Grafo:
             peso = random.random()*100  # 0.1 ajusta la variación; 2 decimales
             arista_Selec.peso = peso 
             
+        self.imprimir_lista_pesos()
             
-            print("Arista: (" + str(arista_Selec.nodo_origen) + "," + str(arista_Selec.nodo_destino) + ") Peso:", peso) #Imprimir pesos
+        
+        
+        
         
         
         
@@ -231,6 +234,10 @@ class Grafo:
     def imprimir_lista_aristas(self):
         for i in self.lista_aristas:
             print("(" + str(i.nodo_origen) + "," + str(i.nodo_destino) + ")")  # Formato de impresión de la arista
+
+    def imprimir_lista_pesos(self):
+        for i in self.lista_aristas:
+            print("Arista: (" + str(i.nodo_origen) + "," + str(i.nodo_destino) + ") Peso:", i.peso) #Imprimir pesos
 
 
 

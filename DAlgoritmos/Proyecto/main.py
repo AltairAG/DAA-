@@ -23,7 +23,7 @@ filas = 3            #30 = 5x6      100 = 9x12       500 = 25x20
 columnas = 4
 
 # Malla
-# grafo = grafoMalla(filas, columnas)
+grafo = grafoMalla(filas, columnas)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_R(12)                 #DFSR
 # arbol = grafo.DFS_I(200)                #DFSI
@@ -31,11 +31,11 @@ columnas = 4
 
 
 # Erdos-Renyi
-# grafo = grafoErdosRenyi(n, m)
+grafo = grafoErdosRenyi(n, m)
 # arbol = grafo.BFS(4)                    #BFS
 # arbol = grafo.DFS_R(4)                  #DFSR
 # arbol = grafo.DFS_I(4)                  #DFSI
-# arbol = grafo.dijkstra(4)               #Dijkstra
+arbol = grafo.dijkstra(4)               #Dijkstra
 
 # Gilbert
 #grafo = grafoGilbert(n, p)
