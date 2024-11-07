@@ -6,6 +6,7 @@ from collections import deque
 import random
 from heapq import heappop, heappush
 from collections import defaultdict
+import heapq
 
 
 # Clase para representar el Grafo
@@ -152,6 +153,79 @@ class Grafo:
         return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
     
     
+    # def dijkstra(self, s):
+    #     self.asignar_pesos()
+        
+    #     # Inicialización de distancias y estructuras auxiliares
+    #     distancias = {nodo.id: float('inf') for nodo in self.lista_nodos}  # Cambié aquí para usar 'nodo.id'
+    #     distancias[s] = 0
+    #     predecesores = {nodo.id: None for nodo in self.lista_nodos}  # Cambié aquí para usar 'nodo.id'
+    #     camino_del_menor_costo = []  # Lista para almacenar las aristas del camino de menor costo
+    #     pq = [(0, s)]  # Priority queue para elegir el nodo con la menor distancia
+
+    #     while pq:
+    #         # Extraemos el primer elemento de la cola de prioridad
+    #         elemento = heappop(pq)
+            
+    #         # Asignamos valores a las variables de forma separada
+    #         distancia_actual = elemento[0]
+    #         nodo_actual = elemento[1]
+
+    #         # Si el nodo actual ya tiene la distancia más corta, continuamos
+    #         if distancia_actual > distancias[nodo_actual]:
+    #             continue
+
+    #         # Recorremos las aristas del grafo para calcular las distancias
+    #         for arista in self.lista_aristas:
+    #             # Verificamos si la arista es adyacente al nodo actual
+    #             if arista.nodo_origen == nodo_actual:  # Usamos directamente el ID
+    #                 vecino = arista.nodo_destino
+    #                 peso_arista = arista.peso
+    #             elif arista.nodo_destino == nodo_actual:  # Usamos directamente el ID
+    #                 vecino = arista.nodo_origen
+    #                 peso_arista = arista.peso
+    #             else:
+    #                 continue
+
+    #             # Verificar si el vecino está en el diccionario de distancias
+    #             if vecino not in distancias:
+    #                 print(f"Advertencia: El vecino {vecino} no está en el diccionario de distancias.")
+    #                 continue
+
+    #             # Calculamos la nueva distancia hacia el vecino
+    #             nueva_distancia = distancias[nodo_actual] + peso_arista
+
+    #             # Si encontramos un camino más corto, actualizamos las distancias y los predecesores
+    #             if nueva_distancia < distancias[vecino]:
+    #                 distancias[vecino] = nueva_distancia
+    #                 predecesores[vecino] = nodo_actual
+    #                 heappush(pq, (nueva_distancia, vecino))
+
+    #     # Verificar si el nodo de destino fue alcanzado
+    #     nodo_destino = list(self.lista_nodos)[-1].id  # Asumimos que el último nodo es el destino
+    #     if nodo_destino not in predecesores or predecesores[nodo_destino] is None:
+    #         print(f"No hay camino hacia el nodo destino {nodo_destino}.")
+    #         return None, None
+
+    #     # Ahora construimos el camino de menor costo desde el nodo origen hasta el nodo final
+    #     # Empezamos desde el nodo final y seguimos los predecesores hacia atrás
+    #     # Almacenamos las aristas del camino de menor costo
+    #     camino_del_menor_costo = []
+    #     while predecesores[nodo_destino] is not None:
+    #         camino_del_menor_costo.append((predecesores[nodo_destino], nodo_destino))
+    #         nodo_destino = predecesores[nodo_destino]
+
+    #     # Invertimos la lista para que las aristas estén en el orden correcto (de origen a destino)
+    #     camino_del_menor_costo.reverse()
+
+    #     # Guardar el archivo gv del arbol, pasando distancias
+    #     self.guardar_dijkstra("Dijkstra_resultado.gv", camino_del_menor_costo, s, nodo_destino, distancias)
+
+    #     # Devolvemos las distancias y el camino de menor costo
+    #     return distancias, camino_del_menor_costo
+
+
+
     def dijkstra(self, s):
         self.asignar_pesos()
 
@@ -197,13 +271,15 @@ class Grafo:
                 camino_menor_costo.append((padre, nodo))
             nodo = padre
         camino_menor_costo.reverse()
+        
+        print(camino_menor_costo)
 
         # Llamar a guardar_dijkstra con el nodo de menor costo distinto de s
-        nombre_archivo = "Dijkstra_resultado.gv"
-        self.guardar_dijkstra(nombre_archivo, camino_menor_costo, s, nodo_destino)
+        self.guardar_dijkstra("Dijkstra_resultado.gv", camino_menor_costo, s, nodo_destino, distancias)
         
         return arbol_dijkstra, camino_menor_costo
 
+        
 
 
 
@@ -273,31 +349,25 @@ class Grafo:
                 f.write(f"{arista.nodo_origen} -- {arista.nodo_destino};\n")
             f.write("}\n")
     
-    def guardarBFS_DFS(self, aristas, nombreAlgo):
-    # Escribir el árbol BFS en formato Graphviz (.gv)
-        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombreAlgo + ".gv"
-        with open(nombre_archivo, 'w') as f:
-            f.write("digraph BFS_Tree {\n")
-            for arista in aristas:
-                f.write(f'  {arista[0]} -- {arista[1]};\n')
-            f.write("}\n")
-            
-    def guardar_dijkstra(self, nombre_archivo, camino_menor_costo, nodo_inicio, nodo_fin):
+    def guardar_dijkstra(self, nombre_archivo, camino_menor_costo, nodo_inicio, nodo_fin, distancias):
         # Ruta del archivo
         nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombre_archivo
         with open(nombre_archivo, 'w') as f:
             f.write("graph G {\n")
             
-            # Escribe el nodo de inicio con su color y su id como etiqueta
-            f.write(f"{nodo_inicio} [label=\"{nodo_inicio}\" color=blue, style=filled];\n")
+            # Escribe el nodo de inicio con su color, id y distancia como etiqueta
+            distancia_inicio = distancias.get(nodo_inicio, float('inf'))  # Distancia al nodo de inicio
+            f.write(f"{nodo_inicio} [label=\"n{nodo_inicio} ({distancia_inicio:.2f})\" color=blue, style=filled];\n")
             
-            # Escribe el nodo de fin con su color y su id como etiqueta
-            f.write(f"{nodo_fin} [label=\"{nodo_fin}\" color=red, style=filled];\n")
+            # Escribe el nodo de fin con su color, id y distancia como etiqueta
+            distancia_fin = distancias.get(nodo_fin, float('inf'))  # Distancia al nodo de fin
+            f.write(f"{nodo_fin} [label=\"n{nodo_fin} ({distancia_fin:.2f})\" color=red, style=filled];\n")
             
-            # Escribe los demás nodos solo con su id como etiqueta
+            # Escribe los demás nodos con su id y la distancia al nodo de inicio
             for nodo in self.lista_nodos:
                 if nodo.id != nodo_inicio and nodo.id != nodo_fin:
-                    f.write(f"{nodo.id} [label=\"{nodo.id}\"];\n")
+                    distancia = distancias.get(nodo.id, float('inf'))  # Obtiene la distancia del nodo o inf si no está
+                    f.write(f"{nodo.id} [label=\"n{nodo.id} ({distancia:.2f})\"];\n")
             
             # Escribe las aristas con colores según el camino de menor costo
             for arista in self.lista_aristas:
@@ -310,4 +380,6 @@ class Grafo:
             f.write("}\n")
 
         print(f"Archivo Graphviz guardado como {nombre_archivo}")
+
+
 
