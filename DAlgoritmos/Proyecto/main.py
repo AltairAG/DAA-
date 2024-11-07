@@ -54,7 +54,7 @@ columnas = 4
 
 
 # Barabasi-Albert
-grafo = grafoBarabasiAlbert(n, d)
+# grafo = grafoBarabasiAlbert(n, d)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.DFS_R(15)                 #DFSR
