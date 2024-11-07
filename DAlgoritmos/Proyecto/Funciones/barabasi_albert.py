@@ -21,11 +21,18 @@ def grafoBarabasiAlbert(n, d, dirigido=False):
 
         for _ in range(d):
             nodo_existente = random.choices(nodos_existentes, weights=probabilidades, k=1)[0]
-            grafo.crear_aristas(nuevo_nodo, nodo_existente)
-            if not dirigido:
-                grafo.crear_aristas(nodo_existente, nuevo_nodo)
+
+            # Verificar si la arista ya existe (no dirigida)
+            if not any((nodo_existente == arista.nodo_origen and nuevo_nodo == arista.nodo_destino) or
+                       (nodo_existente == arista.nodo_destino and nuevo_nodo == arista.nodo_origen) for arista in grafo.lista_aristas):
+                grafo.crear_aristas(nuevo_nodo, nodo_existente)
+                
+                # Solo crear la arista invertida si no es dirigida
+                if dirigido:
+                    grafo.crear_aristas(nodo_existente, nuevo_nodo)
 
     grafo.imprimir_lista_aristas()
-#    grafo.guardar_csv("BarabasiAlbert\\BarabasiAlbert.csv")
+    # grafo.guardar_csv("BarabasiAlbert\\BarabasiAlbert.csv")
     grafo.guardar_graphviz("BarabasiAlbert.gv")
     return grafo
+
