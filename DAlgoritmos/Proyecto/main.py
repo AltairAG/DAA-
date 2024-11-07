@@ -14,14 +14,15 @@ from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
 
 
 # Variables para los modelos
-n = 15
-m = 30
-p = .5
+n = 500
+m = 1100
+p = .3
 r = 2.5
-d = 3
-filas = 3            #30 = 5x6      100 = 9x12       500 = 25x20   
-columnas = 4
+d = 2
+filas = 25            #30 = 5x6      100 = 9x12       500 = 25x20   
+columnas = 20
 
+    
 # Malla
 # grafo = grafoMalla(filas, columnas)
 # arbol = grafo.BFS(15)                   #BFS
@@ -31,14 +32,14 @@ columnas = 4
 
 
 # Erdos-Renyi
-# grafo = grafoErdosRenyi(n, m)
+#grafo = grafoErdosRenyi(n, m)
 # arbol = grafo.BFS(4)                    #BFS
 # arbol = grafo.DFS_R(4)                  #DFSR
 # arbol = grafo.DFS_I(4)                  #DFSI
-# arbol = grafo.dijkstra(4)               #Dijkstra
+# arbol = grafo.dijkstra(50)               #Dijkstra
 
 # Gilbert
-#grafo = grafoGilbert(n, p)
+# grafo = grafoGilbert(n, p)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_R(29)                 #DFSR
 # arbol = grafo.DFS_I(15)                 #DFSI
@@ -54,18 +55,18 @@ columnas = 4
 
 
 # Barabasi-Albert
-grafo = grafoBarabasiAlbert(n, d)
+# grafo = grafoBarabasiAlbert(n, d)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.DFS_R(15)                 #DFSR
-arbol = grafo.dijkstra(4)               #Dijkstra
+# arbol = grafo.dijkstra(4)               #Dijkstra
 
 # Dorogovtsev-Mendes
-# grafo = grafoDorogovtsevMendes(n)
+grafo = grafoDorogovtsevMendes(n)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_I(250)                #DFSI
 # arbol = grafo.DFS_R(50)                 #DFSR
-# arbol = grafo.dijkstra(4)               #Dijkstra
+arbol = grafo.dijkstra(4)               #Dijkstra
 
 
 

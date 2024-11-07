@@ -56,7 +56,7 @@ class Grafo:
             peso = random.random()*100  # 0.1 ajusta la variación; 2 decimales
             arista_Selec.peso = peso 
             
-        self.imprimir_lista_pesos()
+        #self.imprimir_lista_pesos()
             
         
         
@@ -348,6 +348,22 @@ class Grafo:
             for arista in self.lista_aristas:
                 f.write(f"{arista.nodo_origen} -- {arista.nodo_destino};\n")
             f.write("}\n")
+    
+    
+    
+    
+    
+    
+    def guardarBFS_DFS(self, aristas, nombreAlgo):
+                  
+            # Escribir el árbol BFS en formato Graphviz (.gv)
+        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombreAlgo + ".gv"
+        with open(nombre_archivo, 'w') as f:
+            f.write("digraph BFS_Tree {\n")
+            for arista in aristas:
+                f.write(f'  {arista[0]} -- {arista[1]};\n')
+            f.write("}\n")
+        
     
     def guardar_dijkstra(self, nombre_archivo, camino_menor_costo, nodo_inicio, nodo_fin, distancias):
         # Ruta del archivo

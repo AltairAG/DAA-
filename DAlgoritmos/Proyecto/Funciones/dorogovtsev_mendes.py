@@ -7,7 +7,7 @@ def grafoDorogovtsevMendes(n, dirigido=False):
         raise ValueError("El número de nodos debe ser al menos 3 para aplicar el modelo Dorogovtsev-Mendes.")
     
     grafo = Grafo()
-    grafo.crear_nodos(3)
+    grafo.crear_nodos(3)  # Crear los primeros 3 nodos
     
     # Crear un triángulo inicial entre los primeros 3 nodos
     grafo.crear_aristas(1, 2)
@@ -16,8 +16,8 @@ def grafoDorogovtsevMendes(n, dirigido=False):
     
     # Agregar nodos adicionales según el modelo Dorogovtsev-Mendes
     for nuevo_nodo in range(4, n + 1):
-        # Agregar el nuevo nodo a la lista de nodos
-        grafo.crear_nodos(1)
+        # Agregar el nuevo nodo
+        grafo.crear_nodos(nuevo_nodo)
 
         # Seleccionar una arista existente al azar
         arista_seleccionada = random.choice(grafo.lista_aristas)
