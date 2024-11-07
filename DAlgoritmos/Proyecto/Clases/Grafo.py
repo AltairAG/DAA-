@@ -5,7 +5,7 @@ from Clases.Arista import Arista
 from collections import deque
 import random
 from heapq import heappop, heappush
-import math
+from collections import defaultdict
 
 
 # Clase para representar el Grafo
@@ -50,9 +50,13 @@ class Grafo:
     
     def asignar_pesos(self):
         for arista_Selec in self.lista_aristas:
-            peso = random.random()
-            arista_Selec.peso = peso   
-        
+            # Genera un peso aleatorio usando una distribución exponencial
+
+            peso = random.random()*100  # 0.1 ajusta la variación; 2 decimales
+            arista_Selec.peso = peso 
+            
+            
+            print("Arista: (" + str(arista_Selec.nodo_origen) + "," + str(arista_Selec.nodo_destino) + ") Peso:", peso) #Imprimir pesos
         
         
         
@@ -147,72 +151,58 @@ class Grafo:
     
     def dijkstra(self, s):
         self.asignar_pesos()
-        
-        
-        # Inicialización
-        distancias = {nodo.id: float('inf') for nodo in self.lista_nodos}  # Inicializar las distancias con infinito
-        distancias[s] = 0  # La distancia al nodo inicial es 0
-        predecesores = {nodo.id: None for nodo in self.lista_nodos}  # Diccionario de predecesores
-        nodos_no_visitados = list(self.lista_nodos)  # Lista de nodos por visitar
 
-        while nodos_no_visitados:
-            # Encontrar el nodo con la distancia mínima
-            nodo_actual = min(nodos_no_visitados, key=lambda nodo: distancias[nodo.id])
-            nodos_no_visitados.remove(nodo_actual)
-
-            # Actualizar las distancias de los vecinos
+        # Inicialización de distancias y estructuras auxiliares
+        distancias = {nodo.id: float('inf') for nodo in self.lista_nodos}
+        distancias[s] = 0
+        predecesores = {nodo.id: None for nodo in self.lista_nodos}
+        cola_prioridad = [(0, s)]
+        arbol_dijkstra = []
+        
+        while cola_prioridad:
+            distancia_actual, nodo_actual = heappop(cola_prioridad)
+            
+            if distancia_actual > distancias[nodo_actual]:
+                continue
+            
             for arista in self.lista_aristas:
                 if arista.nodo_origen == nodo_actual:
                     vecino = arista.nodo_destino
+                    peso = arista.peso
                 elif arista.nodo_destino == nodo_actual:
                     vecino = arista.nodo_origen
+                    peso = arista.peso
                 else:
                     continue
-
-                nueva_distancia = distancias[nodo_actual.id] + arista.peso
-                if nueva_distancia < distancias[vecino.id]:
-                    distancias[vecino.id] = nueva_distancia
-                    predecesores[vecino.id] = nodo_actual.id
-
-        # Guardar el grafo calculado en un archivo .gv
-        self.guardar_grafo_calculado("Dijkstra_Tree", s, predecesores, distancias)
-
-        return distancias, predecesores  # Regresar las distancias y los predecesores
-
-
-    def guardar_grafo_calculado(self, nombre_archivo, nodo_inicio, predecesores, distancias):
-        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombre_archivo + ".gv"
+                
+                nueva_distancia = distancia_actual + peso
+                if nueva_distancia < distancias[vecino]:
+                    distancias[vecino] = nueva_distancia
+                    predecesores[vecino] = nodo_actual
+                    heappush(cola_prioridad, (nueva_distancia, vecino))
+                    arbol_dijkstra.append((nodo_actual, vecino, nueva_distancia))
         
-        # Construir la ruta óptima usando los predecesores
-        ruta_optima = set()
-        for nodo_id in predecesores:
-            nodo_actual = nodo_id
-            while nodo_actual is not None and predecesores[nodo_actual] is not None:
-                ruta_optima.add((predecesores[nodo_actual], nodo_actual))
-                nodo_actual = predecesores[nodo_actual]
+        # Encontrar el nodo con el menor costo total distinto de s
+        nodo_destino = min((nodo for nodo in distancias if nodo != s), key=distancias.get)
+        
+        # Construir el camino de menor costo hacia el nodo_destino
+        camino_menor_costo = []
+        nodo = nodo_destino
+        while nodo is not None:
+            padre = predecesores[nodo]
+            if padre is not None:
+                camino_menor_costo.append((padre, nodo))
+            nodo = padre
+        camino_menor_costo.reverse()
 
-        with open(nombre_archivo, 'w') as f:
-            f.write("digraph Dijkstra_Tree {\n")
-            
-            # Colorear los nodos de inicio y destino, y mostrar el ID con la distancia en el label
-            for nodo in self.lista_nodos:
-                nodo_id = nodo.id  # Aquí accedes directamente al id de cada nodo
-                label = f"{nodo_id} ({distancias[nodo_id]:.2f})"  # Mostrar la distancia junto al ID
-                
-                # Asignar color azul al nodo de inicio y verde a los nodos en la ruta óptima
-                color = "blue" if nodo_id == str(nodo_inicio) else "green" if nodo.id in [dest[1] for dest in ruta_optima] else "black"
-                f.write(f'  {nodo_id} [label="{label}", color="{color}", style=filled, fontcolor=white];\n')
-            
-            # Colorear las aristas que pertenecen a la ruta óptima en azul
-            for arista in self.lista_aristas:
-                origen_id = arista.nodo_origen  # Si es un ID (entero) en lugar de un objeto Nodo
-                destino_id = arista.nodo_destino 
-                
-                # Asignar color azul a las aristas que pertenecen a la ruta óptima
-                color = "blue" if (origen_id, destino_id) in ruta_optima or (destino_id, origen_id) in ruta_optima else "black"
-                f.write(f'  {origen_id} -> {destino_id} [color="{color}"];\n')
-            
-            f.write("}\n")
+        # Llamar a guardar_dijkstra con el nodo de menor costo distinto de s
+        nombre_archivo = "Dijkstra_resultado.gv"
+        self.guardar_dijkstra(nombre_archivo, camino_menor_costo, s, nodo_destino)
+        
+        return arbol_dijkstra, camino_menor_costo
+
+
+
 
 
 
@@ -285,3 +275,32 @@ class Grafo:
                 f.write(f'  {arista[0]} -- {arista[1]};\n')
             f.write("}\n")
             
+    def guardar_dijkstra(self, nombre_archivo, camino_menor_costo, nodo_inicio, nodo_fin):
+        # Ruta del archivo
+        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombre_archivo
+        with open(nombre_archivo, 'w') as f:
+            f.write("graph G {\n")
+            
+            # Escribe el nodo de inicio con su color y su id como etiqueta
+            f.write(f"{nodo_inicio} [label=\"{nodo_inicio}\" color=blue, style=filled];\n")
+            
+            # Escribe el nodo de fin con su color y su id como etiqueta
+            f.write(f"{nodo_fin} [label=\"{nodo_fin}\" color=red, style=filled];\n")
+            
+            # Escribe los demás nodos solo con su id como etiqueta
+            for nodo in self.lista_nodos:
+                if nodo.id != nodo_inicio and nodo.id != nodo_fin:
+                    f.write(f"{nodo.id} [label=\"{nodo.id}\"];\n")
+            
+            # Escribe las aristas con colores según el camino de menor costo
+            for arista in self.lista_aristas:
+                if (arista.nodo_origen, arista.nodo_destino) in camino_menor_costo or \
+                (arista.nodo_destino, arista.nodo_origen) in camino_menor_costo:
+                    f.write(f"{arista.nodo_origen} -- {arista.nodo_destino} [color=green, penwidth=2, weight=1];\n")
+                else:
+                    f.write(f"{arista.nodo_origen} -- {arista.nodo_destino} [color=black, penwidth=1, weight=1];\n")
+            
+            f.write("}\n")
+
+        print(f"Archivo Graphviz guardado como {nombre_archivo}")
+
