@@ -14,13 +14,13 @@ from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
 
 
 # Variables para los modelos
-n = 100
+n = 100 
 m = 1100
 p = .3
 r = 2.5
 d = 3
-filas = 25            #30 = 5x6      100 = 9x12       500 = 25x20   
-columnas = 20
+filas = 5            #30 = 5x6      100 = 9x12       500 = 25x20   
+columnas = 6
 
     
 # Malla
@@ -55,7 +55,7 @@ columnas = 20
 
 
 # Barabasi-Albert
-grafo = grafoBarabasiAlbert(n, d)
+# grafo = grafoBarabasiAlbert(n, d)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.DFS_R(15)                 #DFSR
