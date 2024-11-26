@@ -36,3 +36,5 @@ def grafoBarabasiAlbert(n, d, dirigido=False):
     grafo.guardar_graphviz("BarabasiAlbert.gv")
     return grafo
 
+#barabas
+
