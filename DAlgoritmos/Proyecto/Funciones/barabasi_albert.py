@@ -4,34 +4,84 @@ import random
 # Función para Modelo Gn,d Barabási-Albert
 def grafoBarabasiAlbert(n, d, dirigido=False):
     grafo = Grafo()
-    grafo.crear_nodos(n)
+    ind = 0
 
-    # Conectar los primeros d nodos completamente
-    for i in range(d):
-        for j in range(i + 1, d + 1):
-            grafo.crear_aristas(i + 1, j + 1)
-
-    # Agregar los nodos restantes con probabilidad proporcional al grado
-    for nuevo_nodo in range(d + 1, n + 1):
-        nodos_existentes = [i for i in range(1, nuevo_nodo)]
-        grados = [sum(1 for arista in grafo.lista_aristas if arista.nodo_origen == i or arista.nodo_destino == i)
-                  for i in nodos_existentes]
-        total_grados = sum(grados)
-        probabilidades = [grado / total_grados for grado in grados]
-
-        for _ in range(d):
-            nodo_existente = random.choices(nodos_existentes, weights=probabilidades, k=1)[0]
-
-            # Verificar si la arista ya existe (no dirigida)
-            if not any((nodo_existente == arista.nodo_origen and nuevo_nodo == arista.nodo_destino) or
-                       (nodo_existente == arista.nodo_destino and nuevo_nodo == arista.nodo_origen) for arista in grafo.lista_aristas):
-                grafo.crear_aristas(nuevo_nodo, nodo_existente)
-                
-                # Solo crear la arista invertida si no es dirigida
-                if dirigido:
-                    grafo.crear_aristas(nodo_existente, nuevo_nodo)
-
+    
+    # Agregar el nodo inicial
+    grafo.agregarNodo(0)             # Creamos el primer nodo
+    grafo.lista_nodos[0].grado = d    # Le asignamos el grado total para nuevos nodos
+    
+    
+    for i in range(1, n+1):              # i es el indice del nuevo nodo!!
+        grafo.agregarNodo(i)             # Creamos el nuevo nodo
+        grafo.lista_nodos[i].grado = d    # Le asignamos el grado total para nuevos nodos
+        
+        for j in range(0, n+1):
+            if grafo.lista_nodos[ind].grado > 0:
+                grafo.crear_aristas(grafo.lista_nodos[ind], grafo.lista_nodos[i])
+                grafo.lista_nodos[ind].grado -= 1 
+                grafo.lista_nodos[i].grado -= 1 
+                break
+            else:
+                ind += 1
+            
+    
+    # grafo.imprimir_grados()        
+    # grafo.imprimir_lista_pesos()
     grafo.imprimir_lista_aristas()
     # grafo.guardar_csv("BarabasiAlbert\\BarabasiAlbert.csv")
     grafo.guardar_graphviz("BarabasiAlbert.gv")
+    
     return grafo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from Clases.Grafo import Grafo
+# import random
+
+# # Función para Modelo Gn,d Barabási-Albert
+# def grafoBarabasiAlbert(n, d, dirigido=False):
+#     grafo = Grafo()
+#     j = 0
+
+    
+#     # Agregar el nodo inicial
+#     grafo.agregarNodo(0)             # Creamos el primer nodo
+#     grafo.lista_nodos[0].grado = d    # Le asignamos el grado total para nuevos nodos
+    
+#     for nod2 in range(1, n+1):
+#         grafo.agregarNodo(nod2)             # Creamos un nuevo nodo
+#         grafo.lista_nodos[nod2].grado = d   # Le asignamos nuevamente el grado total para nuevos nodos
+        
+                         
+#         for nod1 in grafo.lista_nodos:
+#             if nod1.grado > 0 and grafo.lista_nodos[nod2].id != nod1:
+                
+#                 grafo.crear_aristas(nod1.id, grafo.lista_nodos[nod2].id)
+#                 nod1.grado -= 1
+#                 grafo.lista_nodos[nod2].grado -= 1
+#     j = j+1            
+            
+    
+#     # grafo.imprimir_grados()        
+#     # grafo.imprimir_lista_pesos()
+
+#     grafo.imprimir_lista_aristas()
+#     # grafo.guardar_csv("BarabasiAlbert\\BarabasiAlbert.csv")
+#     grafo.guardar_graphviz("BarabasiAlbert.gv")
+    
+#     return grafo

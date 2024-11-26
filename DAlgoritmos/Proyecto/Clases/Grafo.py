@@ -23,6 +23,9 @@ class Grafo:
     def agregar_nodo(self,n):
         self.lista_nodos.append(n)
     
+    def agregarNodo(self,n):
+        self.lista_nodos.append(Nodo(n))
+    
 
     def crear_aristas(self, nodo1, nodo2):
         nueva_arista = Arista(nodo1, nodo2)
@@ -151,78 +154,10 @@ class Grafo:
 
         print("\nÁrbol DFS_I:\n", arbol_dfs)
         return arbol_dfs  # Devuelve el árbol en forma de lista de aristas
-    
-    
-    # def dijkstra(self, s):
-    #     self.asignar_pesos()
-        
-    #     # Inicialización de distancias y estructuras auxiliares
-    #     distancias = {nodo.id: float('inf') for nodo in self.lista_nodos}  # Cambié aquí para usar 'nodo.id'
-    #     distancias[s] = 0
-    #     predecesores = {nodo.id: None for nodo in self.lista_nodos}  # Cambié aquí para usar 'nodo.id'
-    #     camino_del_menor_costo = []  # Lista para almacenar las aristas del camino de menor costo
-    #     pq = [(0, s)]  # Priority queue para elegir el nodo con la menor distancia
 
-    #     while pq:
-    #         # Extraemos el primer elemento de la cola de prioridad
-    #         elemento = heappop(pq)
-            
-    #         # Asignamos valores a las variables de forma separada
-    #         distancia_actual = elemento[0]
-    #         nodo_actual = elemento[1]
 
-    #         # Si el nodo actual ya tiene la distancia más corta, continuamos
-    #         if distancia_actual > distancias[nodo_actual]:
-    #             continue
 
-    #         # Recorremos las aristas del grafo para calcular las distancias
-    #         for arista in self.lista_aristas:
-    #             # Verificamos si la arista es adyacente al nodo actual
-    #             if arista.nodo_origen == nodo_actual:  # Usamos directamente el ID
-    #                 vecino = arista.nodo_destino
-    #                 peso_arista = arista.peso
-    #             elif arista.nodo_destino == nodo_actual:  # Usamos directamente el ID
-    #                 vecino = arista.nodo_origen
-    #                 peso_arista = arista.peso
-    #             else:
-    #                 continue
 
-    #             # Verificar si el vecino está en el diccionario de distancias
-    #             if vecino not in distancias:
-    #                 print(f"Advertencia: El vecino {vecino} no está en el diccionario de distancias.")
-    #                 continue
-
-    #             # Calculamos la nueva distancia hacia el vecino
-    #             nueva_distancia = distancias[nodo_actual] + peso_arista
-
-    #             # Si encontramos un camino más corto, actualizamos las distancias y los predecesores
-    #             if nueva_distancia < distancias[vecino]:
-    #                 distancias[vecino] = nueva_distancia
-    #                 predecesores[vecino] = nodo_actual
-    #                 heappush(pq, (nueva_distancia, vecino))
-
-    #     # Verificar si el nodo de destino fue alcanzado
-    #     nodo_destino = list(self.lista_nodos)[-1].id  # Asumimos que el último nodo es el destino
-    #     if nodo_destino not in predecesores or predecesores[nodo_destino] is None:
-    #         print(f"No hay camino hacia el nodo destino {nodo_destino}.")
-    #         return None, None
-
-    #     # Ahora construimos el camino de menor costo desde el nodo origen hasta el nodo final
-    #     # Empezamos desde el nodo final y seguimos los predecesores hacia atrás
-    #     # Almacenamos las aristas del camino de menor costo
-    #     camino_del_menor_costo = []
-    #     while predecesores[nodo_destino] is not None:
-    #         camino_del_menor_costo.append((predecesores[nodo_destino], nodo_destino))
-    #         nodo_destino = predecesores[nodo_destino]
-
-    #     # Invertimos la lista para que las aristas estén en el orden correcto (de origen a destino)
-    #     camino_del_menor_costo.reverse()
-
-    #     # Guardar el archivo gv del arbol, pasando distancias
-    #     self.guardar_dijkstra("Dijkstra_resultado.gv", camino_del_menor_costo, s, nodo_destino, distancias)
-
-    #     # Devolvemos las distancias y el camino de menor costo
-    #     return distancias, camino_del_menor_costo
 
 
 
@@ -314,6 +249,11 @@ class Grafo:
     def imprimir_lista_pesos(self):
         for i in self.lista_aristas:
             print("Arista: (" + str(i.nodo_origen) + "," + str(i.nodo_destino) + ") Peso:", i.peso) #Imprimir pesos
+    
+    def imprimir_grados(self):
+        for i in self.lista_nodos:
+            nd = int(i.id)
+            print("N" + str(self.lista_nodos[nd]), "Grado:", self.lista_nodos[nd].grado)
 
 
 
