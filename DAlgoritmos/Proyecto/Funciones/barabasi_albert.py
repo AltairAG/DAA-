@@ -18,7 +18,9 @@ def grafoBarabasiAlbert(n, d, dirigido=False):
         
         for j in range(0, n+1):
             if grafo.lista_nodos[ind].grado > 0:
-                grafo.crear_aristas(grafo.lista_nodos[ind], grafo.lista_nodos[i])
+                n1 = str(grafo.lista_nodos[ind])
+                n2 = str( grafo.lista_nodos[i])
+                grafo.crear_aristas(n1, n2)
                 grafo.lista_nodos[ind].grado -= 1 
                 grafo.lista_nodos[i].grado -= 1 
                 break
@@ -33,5 +35,3 @@ def grafoBarabasiAlbert(n, d, dirigido=False):
     grafo.guardar_graphviz("BarabasiAlbert.gv")
     
     return grafo
-
-# bara

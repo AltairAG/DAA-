@@ -14,25 +14,26 @@ from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
 
 
 # Variables para los modelos
-n = 100 
+n = 30
 m = 1100
 p = .3
 r = 2.5
 d = 3
-filas = 5            #30 = 5x6      100 = 9x12       500 = 25x20   
+filas = 5            #30 = 5x6      100 = 9x12       500 = 25x20
 columnas = 6
 
-    
+
 # Malla
 # grafo = grafoMalla(filas, columnas)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_R(12)                 #DFSR
 # arbol = grafo.DFS_I(200)                #DFSI
 # arbol = grafo.dijkstra(4)               #Dijkstra
+# arbol = grafo.kruskal()                 #Kruskal
 
 
 # Erdos-Renyi
-#grafo = grafoErdosRenyi(n, m)
+# grafo = grafoErdosRenyi(n, m)
 # arbol = grafo.BFS(4)                    #BFS
 # arbol = grafo.DFS_R(4)                  #DFSR
 # arbol = grafo.DFS_I(4)                  #DFSI
@@ -56,7 +57,7 @@ columnas = 6
 
 # Barabasi-Albert
 # grafo = grafoBarabasiAlbert(n, d)
-# arbol = grafo.BFS(15)                   #BFS
+# arbol = grafo.BFSChidito(15)            #BFS especial para barabasi por que maneja tipo de datos string
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.DFS_R(15)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
