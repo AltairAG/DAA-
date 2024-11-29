@@ -24,12 +24,12 @@ columnas = 6
 
 
 # Malla
-# grafo = grafoMalla(filas, columnas)
+grafo = grafoMalla(filas, columnas)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_R(12)                 #DFSR
 # arbol = grafo.DFS_I(200)                #DFSI
 # arbol = grafo.dijkstra(4)               #Dijkstra
-# arbol = grafo.kruskal()                 #Kruskal
+arbol = grafo.kruskal()                 #Kruskal
 
 
 # Erdos-Renyi

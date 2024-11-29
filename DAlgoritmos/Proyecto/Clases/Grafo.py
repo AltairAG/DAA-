@@ -60,7 +60,17 @@ class Grafo:
             arista_Selec.peso = peso
 
         #self.imprimir_lista_pesos()
-
+        
+    def asignar_conjuntos(self):
+        nnodos = len(self.lista_nodos)
+        for i in range(0, nnodos):
+            self.lista_nodos[i].conjunto = self.lista_nodos[i]
+        
+        for _ in self.lista_nodos:
+            print("conjunto:", _.conjunto)
+            
+        
+        
 
 
 
@@ -286,6 +296,57 @@ class Grafo:
 
     def kruskal(self):
         self.asignar_pesos() #ponemos pesos randoms a nuestras aristas
+        self.lista_aristas.sort(key=lambda arista: arista.peso) #Ordenamos las aristas por peso
+        
+        # for i in self.lista_aristas:
+        #     print("Arista:", "(" + str(i.nodo_origen) + ", " + str(i.nodo_destino) + ")", "Peso:", i.peso )        #Funcion lambda para validar el orden de la lista de aristas
+        
+        
+        #crear grupos para separar nodos
+        
+        self.asignar_conjuntos() # se le asigna un conjunto a cada nodo
+        
+        for i in range(0, len(self.lista_aristas)):
+            print(self.lista_aristas.nodo_origen.conjunto)
+            
+            # if i.nodo_origen.conjunto != i.nodo_destino.conjunto:
+            #     self.lista_aristas.nodo_destino.conjunto = self.lista_aristas.nodo_origen.conjunto
+            # else:
+            #     pass
+            
+            
+            
+            
+            
+            #Avanzado
+            
+            
+            
+            
+            
+        self.asignar_pesos() #ponemos pesos randoms a nuestras aristas
+        self.lista_aristas.sort(key=lambda arista: arista.peso) #Ordenamos las aristas por peso
+        self.asignar_conjuntos() # se le asigna un conjunto a cada nodo
+        for i in self.lista_aristas:
+            print("Arista:", "(" + str(i.nodo_origen) + ", " + str(i.nodo_destino) + ")")        #Funcion lambda para validar el orden de la lista de aristas
+        
+        # for _ in self.lista_nodos:
+        #     print("conjunto:", _.conjunto)
+        ind = 0
+        
+        
+        for i in self.lista_aristas:
+            
+            nodo_o = self.lista_aristas[ind].nodo_origen
+        #     nodo_d = self.lista_aristas[ind].nodo_destino
+            
+            numerito = int()
+            print("o",self.lista_nodos[nodo_o].conjunto)
+        #     print("d",self.lista_nodos[ind].conjunto)
+            
+            ind += 1
+    
+            
 
 
 
