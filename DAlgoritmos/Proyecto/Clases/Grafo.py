@@ -308,8 +308,8 @@ class Grafo:
             ind = 0 #Solo inicializa un indice para recorrer la lista de aristas
             print("\nImprimir Conjuntos:")
             for i in self.lista_aristas:
-                no = i.nodo_origen          # Obtenemos el indice en la lista de nodos del nodo origen
-                nd = i.nodo_destino         # Obtenemos el indice en la lista de nodos del nodo destino
+                no = int(i.nodo_origen)          # Obtenemos el indice en la lista de nodos del nodo origen
+                nd = int(i.nodo_destino)         # Obtenemos el indice en la lista de nodos del nodo destino
                 
                 print("\n\nNodoO:", self.lista_nodos[no-1].id, "Conjunto: ", self.lista_nodos[no-1].conjunto, "        ", "NodoD:", self.lista_nodos[nd-1].id, "Conjunto: ", self.lista_nodos[nd-1].conjunto)  # Esto solo imprime el conjunto al que pertenece cada nodo de cada arista
                 

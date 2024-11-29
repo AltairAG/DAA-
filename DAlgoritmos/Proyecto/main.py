@@ -17,8 +17,8 @@ import random
 # Variables para los modelos
 n = 30
 m = 60
-p = .3
-r = 2.5
+p = 1
+r = 10
 d = 3
 filas = 5            #30 = 5x6      100 = 9x12       500 = 25x20
 columnas = 6
@@ -30,7 +30,7 @@ columnas = 6
 # arbol = grafo.DFS_R(12)                 #DFSR
 # arbol = grafo.DFS_I(200)                #DFSI
 # arbol = grafo.dijkstra(4)               #Dijkstra
-# arbol = grafo.kruskal()                 #Kruskal
+# arbol = grafo.kruskal()                 #Kruskal 
 
 
 # Erdos-Renyi
@@ -47,7 +47,7 @@ columnas = 6
 # arbol = grafo.DFS_R(29)                 #DFSR
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.dijkstra(4)               #Dijkstra
-# arbol = grafo.kruskal()                 #Kruskal
+# arbol = grafo.kruskal()                   #Kruskal #AUMENTAR LA PROBABILIDAD DE CONECCION!!
 
 # Geográfico
 # grafo = grafoGeografico(n, r)
@@ -55,7 +55,7 @@ columnas = 6
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.DFS_R(29)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
-# arbol = grafo.kruskal()                 #Kruskal
+# arbol = grafo.kruskal()                 #Kruskal AUMENTAR LA DISTANCIA R PARA QUE SIEMPRE SE CONECTE EL GRAFO
 
 
 
@@ -68,12 +68,12 @@ columnas = 6
 # arbol = grafo.kruskal()                 #Kruskal
 
 # Dorogovtsev-Mendes
-# grafo = grafoDorogovtsevMendes(n)
+grafo = grafoDorogovtsevMendes(5)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_I(250)                #DFSI
 # arbol = grafo.DFS_R(50)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
-# arbol = grafo.kruskal()                 #Kruskal
+arbol = grafo.kruskal()                 #Kruskal
 
 
 
