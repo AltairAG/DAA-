@@ -295,60 +295,72 @@ class Grafo:
 
 
     def kruskal(self):
-        self.asignar_pesos() #ponemos pesos randoms a nuestras aristas
-        self.lista_aristas.sort(key=lambda arista: arista.peso) #Ordenamos las aristas por peso
+            t = []
+            agregados = []
+            self.asignar_pesos() #ponemos pesos randoms a nuestras aristas
+            self.lista_aristas.sort(key=lambda arista: arista.peso) #Ordenamos las aristas por peso
+            self.asignar_conjuntos() # se le asigna un conjunto a cada nodo
+            
+            print("\n¡¡Aristas Ordenadas!!")
+            self.imprimir_lista_aristas()
+            print("\n")
         
-        # for i in self.lista_aristas:
-        #     print("Arista:", "(" + str(i.nodo_origen) + ", " + str(i.nodo_destino) + ")", "Peso:", i.peso )        #Funcion lambda para validar el orden de la lista de aristas
-        
-        
-        #crear grupos para separar nodos
-        
-        self.asignar_conjuntos() # se le asigna un conjunto a cada nodo
-        
-        for i in range(0, len(self.lista_aristas)):
-            print(self.lista_aristas.nodo_origen.conjunto)
+            ind = 0 #Solo inicializa un indice para recorrer la lista de aristas
+            print("\nImprimir Conjuntos:")
+            for i in self.lista_aristas:
+                no = i.nodo_origen          # Obtenemos el indice en la lista de nodos del nodo origen
+                nd = i.nodo_destino         # Obtenemos el indice en la lista de nodos del nodo destino
+                
+                print("\n\nNodoO:", self.lista_nodos[no-1].id, "Conjunto: ", self.lista_nodos[no-1].conjunto, "        ", "NodoD:", self.lista_nodos[nd-1].id, "Conjunto: ", self.lista_nodos[nd-1].conjunto)  # Esto solo imprime el conjunto al que pertenece cada nodo de cada arista
+                
+                
+                if self.lista_nodos[nd-1].conjunto != self.lista_nodos[no-1].conjunto and self.lista_nodos[nd-1] not in agregados: # Si el conjunto de nodo origen es diferente al del destino entonces:
+                    conjant = self.lista_nodos[nd-1].conjunto                          # Guarda el conjunto que tiene el nodo destino
+                    self.lista_nodos[nd-1].conjunto = self.lista_nodos[no-1].conjunto  # Iguala el conjunto del nodo destino al de origen
+                    t.append(self.lista_aristas[ind])                                  # Agrega la arista al arbol final "T"
+                    agregados.append(self.lista_nodos[nd-1])
+                    print("NodoO:", self.lista_nodos[no-1].id, "Conjunto: ", self.lista_nodos[no-1].conjunto, "        ", "NodoD:", self.lista_nodos[nd-1].id, "Conjunto: ", self.lista_nodos[nd-1].conjunto)
+                    for j in t:
+                        print("(" + str(j.nodo_origen) + "," + str(j.nodo_destino) + ")", end="")########
+                    
+                    
+                    ind2 = 0     #Solo inicializa un indice para recorrer la lista de Nodos
+                    for w in self.lista_nodos:   #hace que se pueda recorrer toda la lista de nodos
+                        if self.lista_nodos[ind2].conjunto == self.lista_nodos[nd-1].conjunto:  # SI algun nodo de la lista actual de nodos, pertenece al conjunto de el nodo seleccionado
+                            self.lista_nodos[ind2].conjunto = self.lista_nodos[no-1].conjunto   # Entonces tambien se le asigna al conjunto del nuevo nodo origen que se esta validando
+                        ind2 += 1       #aumenta 1 en nuestro indice            #Lo que se pretende es que si se agrega la arista, el nodo se lleve a todos los elementos de su conjunto anterior
+                    
+                else:
+                    pass  #pasa a la siguiente arista
+                    #del self.lista_aristas[]    
+                
+                ind +=1    #aumenta 1 en nuestro indice 
             
-            # if i.nodo_origen.conjunto != i.nodo_destino.conjunto:
-            #     self.lista_aristas.nodo_destino.conjunto = self.lista_aristas.nodo_origen.conjunto
-            # else:
-            #     pass
+            # print("\n¡¡Igualar conjuntos!!")
+            # for i in self.lista_aristas:
+            #     no = i.nodo_origen
+            #     nd = i.nodo_destino
+            #     print("NodoO:", self.lista_nodos[no-1].id, "Conjunto: ", self.lista_nodos[no-1].conjunto, "        ", "NodoD:", self.lista_nodos[nd-1].id, "Conjunto: ", self.lista_nodos[nd-1].conjunto)
             
             
+            print("\nListas finales:")
+            for j in t:
+                print("(" + str(j.nodo_origen) + "," + str(j.nodo_destino) + ")")
             
+            self.guardar_kruskal(t, "KruskalTree")
             
-            
-            #Avanzado
-            
-            
-            
-            
-            
-        self.asignar_pesos() #ponemos pesos randoms a nuestras aristas
-        self.lista_aristas.sort(key=lambda arista: arista.peso) #Ordenamos las aristas por peso
-        self.asignar_conjuntos() # se le asigna un conjunto a cada nodo
-        for i in self.lista_aristas:
-            print("Arista:", "(" + str(i.nodo_origen) + ", " + str(i.nodo_destino) + ")")        #Funcion lambda para validar el orden de la lista de aristas
-        
-        # for _ in self.lista_nodos:
-        #     print("conjunto:", _.conjunto)
-        ind = 0
-        
-        
-        for i in self.lista_aristas:
-            
-            nodo_o = self.lista_aristas[ind].nodo_origen
-        #     nodo_d = self.lista_aristas[ind].nodo_destino
-            
-            numerito = int()
-            print("o",self.lista_nodos[nodo_o].conjunto)
-        #     print("d",self.lista_nodos[ind].conjunto)
-            
-            ind += 1
+            return t
     
             
-
-
+    def guardar_kruskal(self, aristas, nombreAlgo):
+        # Escribir el árbol BFS en formato Graphviz (.gv)
+        nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombreAlgo + ".gv"
+        with open(nombre_archivo, 'w') as f:
+            f.write("digraph KruskalTree {\n")
+            for arista in aristas:
+                f.write(f'  {arista.nodo_origen} -- {arista.nodo_destino};\n')
+            f.write("}\n")
+        print("Arbol Kruskal Generado!")
 
 
 

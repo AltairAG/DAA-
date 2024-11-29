@@ -8,6 +8,7 @@ from Funciones.gilbert import grafoGilbert
 from Funciones.geografico_simple import grafoGeografico
 from Funciones.barabasi_albert import grafoBarabasiAlbert
 from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
+import random
 
 
 
@@ -15,7 +16,7 @@ from Funciones.dorogovtsev_mendes import grafoDorogovtsevMendes
 
 # Variables para los modelos
 n = 30
-m = 1100
+m = 60
 p = .3
 r = 2.5
 d = 3
@@ -24,12 +25,12 @@ columnas = 6
 
 
 # Malla
-grafo = grafoMalla(filas, columnas)
+# grafo = grafoMalla(filas, columnas)
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_R(12)                 #DFSR
 # arbol = grafo.DFS_I(200)                #DFSI
 # arbol = grafo.dijkstra(4)               #Dijkstra
-arbol = grafo.kruskal()                 #Kruskal
+# arbol = grafo.kruskal()                 #Kruskal
 
 
 # Erdos-Renyi
@@ -38,6 +39,7 @@ arbol = grafo.kruskal()                 #Kruskal
 # arbol = grafo.DFS_R(4)                  #DFSR
 # arbol = grafo.DFS_I(4)                  #DFSI
 # arbol = grafo.dijkstra(50)               #Dijkstra
+# arbol = grafo.kruskal()                 #Kruskal
 
 # Gilbert
 # grafo = grafoGilbert(n, p)
@@ -45,6 +47,7 @@ arbol = grafo.kruskal()                 #Kruskal
 # arbol = grafo.DFS_R(29)                 #DFSR
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.dijkstra(4)               #Dijkstra
+# arbol = grafo.kruskal()                 #Kruskal
 
 # Geográfico
 # grafo = grafoGeografico(n, r)
@@ -52,6 +55,7 @@ arbol = grafo.kruskal()                 #Kruskal
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.DFS_R(29)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
+# arbol = grafo.kruskal()                 #Kruskal
 
 
 
@@ -61,6 +65,7 @@ arbol = grafo.kruskal()                 #Kruskal
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.DFS_R(15)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
+# arbol = grafo.kruskal()                 #Kruskal
 
 # Dorogovtsev-Mendes
 # grafo = grafoDorogovtsevMendes(n)
@@ -68,6 +73,7 @@ arbol = grafo.kruskal()                 #Kruskal
 # arbol = grafo.DFS_I(250)                #DFSI
 # arbol = grafo.DFS_R(50)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
+# arbol = grafo.kruskal()                 #Kruskal
 
 
 
