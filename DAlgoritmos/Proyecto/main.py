@@ -74,6 +74,6 @@ grafo = grafoDorogovtsevMendes(8)
 # arbol = grafo.DFS_I(250)                #DFSI
 # arbol = grafo.DFS_R(50)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
-# arbol = grafo.kruskal()                 #Kruskal
+arbol = grafo.kruskal()                 #Kruskal
 
 

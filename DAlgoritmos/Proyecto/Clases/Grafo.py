@@ -319,8 +319,12 @@ class Grafo:
         self.asignar_pesos()                                         # Ponemos pesos randoms a nuestras aristas
         self.lista_aristas.sort(key=lambda arista: arista.peso)      # Ordenamos las aristas por peso
         self.asignar_conjuntos()                                     # Se le asigna un conjunto a cada nodo
-        print("Aristas Ordenadas:")
+        print("\nAristas Ordenadas:")
         self.imprimir_lista_aristas()
+        
+        for i in self.lista_aristas:
+            if i.nodo_origen != i.nodo_destino:
+                
         
 
 
