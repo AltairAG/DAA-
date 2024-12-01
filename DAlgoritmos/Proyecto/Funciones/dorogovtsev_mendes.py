@@ -29,4 +29,13 @@ def grafoDorogovtsevMendes(n, dirigido=False):
     
     grafo.imprimir_lista_aristas()  # Imprimir las aristas del grafo
     grafo.guardar_graphviz("DorogovtsevMendes.gv")  # Guardar en formato GraphViz actual
+    
+    
+    
+    #Limpiar lista de Nodos:
+    grafo.lista_nodos = grafo.limpiar_LN(grafo.lista_nodos)
+    nodos_finales = len(grafo.lista_nodos)
+    grafo.lista_nodos.clear()
+    grafo.crear_nodos(nodos_finales)
+    
     return grafo
