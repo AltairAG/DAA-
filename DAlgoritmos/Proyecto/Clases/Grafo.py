@@ -324,6 +324,7 @@ class Grafo:
         
         for i in self.lista_aristas:
             if i.nodo_origen != i.nodo_destino:
+                pass
                 
         
 
