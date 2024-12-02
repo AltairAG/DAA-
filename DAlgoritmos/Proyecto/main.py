@@ -68,7 +68,7 @@ columnas = 6
 # arbol = grafo.kruskal()                 #Kruskal
 
 # Dorogovtsev-Mendes
-grafo = grafoDorogovtsevMendes(8)
+grafo = grafoDorogovtsevMendes(5)
 # grafo.imprimir_lista_nodos()
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_I(250)                #DFSI

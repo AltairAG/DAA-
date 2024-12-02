@@ -321,11 +321,64 @@ class Grafo:
         self.asignar_conjuntos()                                     # Se le asigna un conjunto a cada nodo
         print("\nAristas Ordenadas:")
         self.imprimir_lista_aristas()
+        print("\n\n")
         
-        for i in self.lista_aristas:
-            if i.nodo_origen != i.nodo_destino:
-                pass
+        coninit = self.lista_aristas[0].conjunto_o
                 
+        for i in self.lista_aristas:
+            print("\nArista: (" + str(i.nodo_origen) + "," + str(i.nodo_destino) + ")")     #Borrar!
+            print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
+            print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!
+            conant = i.conjunto_d
+            
+            
+            if i.conjunto_d != i.conjunto_o:
+                if i.conjunto_d == coninit:
+                    i.conjunto_o = i.conjunto_d
+                    for j in self.lista_aristas:
+                        if j.conjunto_o == conant:
+                            j.conjunto_o = i.conjunto_d
+                        if j.conjunto_d == conant:
+                            j.conjunto_o = i.conjunto_d
+                            
+                            
+                        if j.nodo_origen == i.nodo_origen:
+                            j.conjunto_o = i.conjunto_d
+                        if j.nodo_destino == i.nodo_origen:
+                            j.conjunto_destino = i.conjunto_d
+                    t.append(i)
+                    print("Se cambia:")
+                    print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
+                    print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!
+                    
+                elif i.conjunto_d != coninit:
+                    i.conjunto_d = i.conjunto_o
+                    for j in self.lista_aristas:
+                        if j.conjunto_o == conant:
+                            j.conjunto_o = i.conjunto_o
+                        if j.conjunto_d == conant:
+                            j.conjunto_d = i.conjunto_o
+                            
+                            
+                        if j.nodo_destino == i.nodo_destino:
+                            j.conjunto_d = i.conjunto_o
+                        if j.nodo_origen == i.nodo_destino:
+                            j.conjunto_o = i.conjunto_o
+                    t.append(i)
+                    print("Se cambia:")
+                    print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
+                    print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!        
+                        
+            elif i.conjunto_d == i.conjunto_o:
+                print("No se agrega!")
+
+        
+        
+        self.imprimir_arbol(t)
+        
+        self.guardar_kruskal(t, "KruskalTree") #Guardamos el arbol en archivo .gv
+            
+        return t    #Retornamos la lista de aristas del arbol Final 
         
 
 
@@ -422,6 +475,13 @@ class Grafo:
 
 
     # Métodos para imprimir las listas
+    def imprimir_arbol(self, listarbol):
+        cont = 1
+        print("\nArbol: ")
+        for i in listarbol:
+            print(str(cont) + ".- (" + str(i.nodo_origen) + "," + str(i.nodo_destino) + ")")
+            cont += 1
+        
     def imprimir_lista_nodos(self):
         print("\nLista de Nodos:")
         for i in self.lista_nodos:
