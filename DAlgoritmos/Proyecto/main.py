@@ -60,7 +60,7 @@ columnas = 6
 
 
 # Barabasi-Albert
-# rafo = grafoBarabasiAlbert(n, d)
+# grafo = grafoBarabasiAlbert(n, d)
 # arbol = grafo.BFSChidito(15)            #BFS especial para barabasi por que maneja tipo de datos string
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.DFS_R(15)                 #DFSR
@@ -68,12 +68,12 @@ columnas = 6
 # arbol = grafo.kruskal()                 #Kruskal
 
 # Dorogovtsev-Mendes
-grafo = grafoDorogovtsevMendes(5)
+# grafo = grafoDorogovtsevMendes(5)
 # grafo.imprimir_lista_nodos()
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_I(250)                #DFSI
 # arbol = grafo.DFS_R(50)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
-arbol = grafo.kruskal()                 #Kruskal
+# arbol = grafo.kruskal()                 #Kruskal
 
 

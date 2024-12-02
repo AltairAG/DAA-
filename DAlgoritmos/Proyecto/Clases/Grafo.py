@@ -332,43 +332,48 @@ class Grafo:
             conant = i.conjunto_d
             
             
+            #Posicionar la condicion bien: si el conjunto destino == al conjunto inicial
             if i.conjunto_d != i.conjunto_o:
-                if i.conjunto_d == coninit:
-                    i.conjunto_o = i.conjunto_d
-                    for j in self.lista_aristas:
-                        if j.conjunto_o == conant:
-                            j.conjunto_o = i.conjunto_d
-                        if j.conjunto_d == conant:
-                            j.conjunto_o = i.conjunto_d
-                            
-                            
-                        if j.nodo_origen == i.nodo_origen:
-                            j.conjunto_o = i.conjunto_d
-                        if j.nodo_destino == i.nodo_origen:
-                            j.conjunto_destino = i.conjunto_d
-                    t.append(i)
-                    print("Se cambia:")
-                    print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
-                    print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!
-                    
-                elif i.conjunto_d != coninit:
-                    i.conjunto_d = i.conjunto_o
-                    for j in self.lista_aristas:
-                        if j.conjunto_o == conant:
-                            j.conjunto_o = i.conjunto_o
-                        if j.conjunto_d == conant:
-                            j.conjunto_d = i.conjunto_o
-                            
-                            
-                        if j.nodo_destino == i.nodo_destino:
-                            j.conjunto_d = i.conjunto_o
-                        if j.nodo_origen == i.nodo_destino:
-                            j.conjunto_o = i.conjunto_o
-                    t.append(i)
-                    print("Se cambia:")
-                    print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
-                    print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!        
+                    if i.conjunto_d == coninit:
+                        i.conjunto_o = i.conjunto_d
+                        for j in self.lista_aristas:
+                            if j.conjunto_o == conant:
+                                j.conjunto_o = i.conjunto_d
+                            if j.conjunto_d == conant:
+                                j.conjunto_o = i.conjunto_d
+                                
+                                
+                            if j.nodo_origen == i.nodo_origen:
+                                j.conjunto_o = i.conjunto_d
+                            if j.nodo_destino == i.nodo_origen:
+                                j.conjunto_destino = i.conjunto_d
+                        t.append(i)
+                        print("Se cambia:")
+                        print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
+                        print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!
+                    elif i.conjunto_o == coninit:
+                        i.conjunto_d = coninit
                         
+                        t.append(i)
+                    
+                    elif i.conjunto_d != coninit:
+                        i.conjunto_d = i.conjunto_o
+                        for j in self.lista_aristas:
+                            if j.conjunto_o == conant:
+                                j.conjunto_o = i.conjunto_o
+                            if j.conjunto_d == conant:
+                                j.conjunto_d = i.conjunto_o
+                                
+                                
+                            if j.nodo_destino == i.nodo_destino:
+                                j.conjunto_d = i.conjunto_o
+                            if j.nodo_origen == i.nodo_destino:
+                                j.conjunto_o = i.conjunto_o
+                        t.append(i)
+                        print("Se cambia:")
+                        print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
+                        print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!        
+                            
             elif i.conjunto_d == i.conjunto_o:
                 print("No se agrega!")
 
