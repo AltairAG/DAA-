@@ -351,13 +351,11 @@ class Grafo:
                         print("Se cambia:")
                         print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
                         print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!
-                    elif i.conjunto_o == coninit:
-                        i.conjunto_d = coninit
-                        
-                        t.append(i)
                     
-                    elif i.conjunto_d != coninit:
-                        i.conjunto_d = i.conjunto_o
+                    
+                    
+                    elif i.conjunto_d == coninit:
+                        i.conjunto_o = i.conjunto_d
                         for j in self.lista_aristas:
                             if j.conjunto_o == conant:
                                 j.conjunto_o = i.conjunto_o

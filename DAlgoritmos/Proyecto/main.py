@@ -68,12 +68,12 @@ columnas = 6
 # arbol = grafo.kruskal()                 #Kruskal
 
 # Dorogovtsev-Mendes
-# grafo = grafoDorogovtsevMendes(5)
+grafo = grafoDorogovtsevMendes(5)
 # grafo.imprimir_lista_nodos()
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_I(250)                #DFSI
 # arbol = grafo.DFS_R(50)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
-# arbol = grafo.kruskal()                 #Kruskal
+arbol = grafo.kruskal()                 #Kruskal
 
 
