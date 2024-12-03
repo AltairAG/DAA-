@@ -656,7 +656,7 @@ class Grafo:
         # Escribir el árbol BFS en formato Graphviz (.gv)
         nombre_archivo = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\" + nombreAlgo + ".gv"
         with open(nombre_archivo, 'w') as f:
-            f.write("digraph KruskalTree {\n")
+            f.write("KruskalTree {\n")
             for arista in aristas:
                 f.write(f'  {arista.nodo_origen} -- {arista.nodo_destino};\n')
             f.write("}\n")

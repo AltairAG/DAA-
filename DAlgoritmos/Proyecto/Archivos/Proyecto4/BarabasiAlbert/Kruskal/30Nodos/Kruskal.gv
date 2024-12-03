@@ -1,4 +1,4 @@
-digraph BFS_Tree {
+digraph KruskalTree {
   15 -- 2;
   15 -- 12;
   15 -- 4;
