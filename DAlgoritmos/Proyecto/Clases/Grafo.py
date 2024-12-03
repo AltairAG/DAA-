@@ -313,76 +313,135 @@ class Grafo:
 
         return arbol_dijkstra, camino_menor_costo
 
-    def kruskal(self):
-        t = []                                                       # Crear lista de ¡ARISTAS!  agregados del arbol
-        agregados = []                                               # Crear lista de ¡NODOS!    agregados al arbol
-        self.asignar_pesos()                                         # Ponemos pesos randoms a nuestras aristas
-        self.lista_aristas.sort(key=lambda arista: arista.peso)      # Ordenamos las aristas por peso
-        self.asignar_conjuntos()                                     # Se le asigna un conjunto a cada nodo
-        print("\nAristas Ordenadas:")
-        self.imprimir_lista_aristas()
-        print("\n\n")
+    def Ditto_Kruskal(self):
+        RKRUSKAL = Grafo(atrbt = self.atrbt.copy(), num_nodos = self.num_nodos.copy(), num_aristas = self.num_aristas.copy())
+        return RKRUSKAL
+               
+               
+    def graphiv(self, n_archivo, atri_nodo = None, source = None, atri_arista = None):
+        dot = Graphviz()
         
-        coninit = self.lista_aristas[0].conjunto_o
+        # Review attribute directed of graph
+        if DIRECTED in self.atrbt:
+            if self.atrbt[DIRECTED]:
+                dot = Digraph()
+            else:
+                dot = Graphviz()
+        
+        if atri_nodo is None:
+            for n in list(self.num_nodos.keys()):
+                dot.node(str(n), str(n))        
+        else:
+        # Map graph to graphviz structure and add vertex attribute
+            for n in list(self.num_nodos.keys()):
+                label = "Nodo actual: " + str(n)
+                source_label = "Nodo inicial: " + str(source) if source is not None else ""
+                label = label + "\n" + source_label
+                label = label + "\n" + atri_nodo + " (" + str(self.num_nodos[n].atributos[atri_nodo]) + ")"
+                dot.node(str(n), label)
+        
+        if atri_arista is None:
+            for a in self.Aristas_Aleatorias():
+                (s,t) = a
+                dot.edge(str(s), str(t))
+        else:
+            for a in self.Aristas_Aleatorias():
+                (s,t) = a
+                flag_arista = self.num_aristas[(s,t)].atrbt["WEIGHT"]
+                dot.edge(str(s), str(t), label=str(flag_arista))
                 
-        for i in self.lista_aristas:
-            print("\nArista: (" + str(i.nodo_origen) + "," + str(i.nodo_destino) + ")")     #Borrar!
-            print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
-            print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!
-            conant = i.conjunto_d
+        #file = open("/home/dreadscythe/ED/Programas/Algoritmos/" + n_archivo + ".gv", "w")
+        file = open(n_archivo + ".gv", "w")
+        file.write(dot.source)
+        file.close()
+        return dot
+    
+    def ID(self, id):
+        if id in self.num_nodos.keys():
+            return self.num_nodos[id]
+        else:
+            return None
+    
+    def Kruskal(self):
+        
+        KRUSKAL = Grafo(atrbt = {DIRECTED:False})
+        paridad  = []
+        rango = []
+        
+        for nodo in self.Kruskal_Nodos():
+            paridad.append(nodo)
+            rango.append(0)
+        
+        list_aristas = sorted(self.num_aristas.items(), key = lambda arista: arista[1].atrbt["WEIGHT"])
+        
+        for arista in list_aristas:
+            (n_init, nodo_final) = arista[0]
+            nodo_primario = self.Buscar(paridad, n_init)
+            nodo_secundario = self.Buscar(paridad, nodo_final)
+            if nodo_primario != nodo_secundario:
+                KRUSKAL.Producir_Vertices(nodos.Nodo(n_init))
+                KRUSKAL.Producir_Vertices(nodos.Nodo(nodo_final))
+                KRUSKAL.Producir_Aristas(aristas.Arista(n_init,nodo_final,{"WEIGHT": arista[1].atrbt["WEIGHT"]}))
+                if rango[nodo_primario] < rango[nodo_secundario]:
+                    paridad[nodo_primario] = nodo_secundario
+                    rango[nodo_secundario] += 1
+                else:
+                    paridad[nodo_secundario] = nodo_primario
+                    rango[nodo_primario] += 1
+        
+        return KRUSKAL
+    
+    
+    def Kruskal_Nodos(self):
+        return self.num_nodos
+    
+    def Prim(self):
+        PRIM = Grafo(atrbt = {DIRECTED: False})
+        distancia = [sys.maxsize] * len(self.num_nodos)
+        paridad = [None] * len(self.num_nodos)
+        flag = [False] * len(self.num_nodos)
+        distancia[124] = 124
+        paridad[124] = -1
+        
+        for nodo in self.num_nodos:
+            distancia_minima = 124
+            min = sys.maxsize
+            for nodo_b in self.num_nodos:
+                if distancia[nodo_b] < min and flag[nodo_b] is False:
+                    min = distancia[nodo_b]
+                    distancia_minima = nodo_b
             
+            nodo_a = distancia_minima
+            flag[nodo_a] = True
+            PRIM.Producir_Vertices(nodos.Nodo(nodo_a))
             
-            #Posicionar la condicion bien: si el conjunto destino == al conjunto inicial
-            if i.conjunto_d != i.conjunto_o:
-                    if i.conjunto_d == coninit:
-                        i.conjunto_o = i.conjunto_d
-                        for j in self.lista_aristas:
-                            if j.conjunto_o == conant:
-                                j.conjunto_o = i.conjunto_d
-                            if j.conjunto_d == conant:
-                                j.conjunto_o = i.conjunto_d
-                                
-                                
-                            if j.nodo_origen == i.nodo_origen:
-                                j.conjunto_o = i.conjunto_d
-                            if j.nodo_destino == i.nodo_origen:
-                                j.conjunto_destino = i.conjunto_d
-                        t.append(i)
-                        print("Se cambia:")
-                        print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
-                        print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!
-                    
-                    
-                    
-                    elif i.conjunto_d == coninit:
-                        i.conjunto_o = i.conjunto_d
-                        for j in self.lista_aristas:
-                            if j.conjunto_o == conant:
-                                j.conjunto_o = i.conjunto_o
-                            if j.conjunto_d == conant:
-                                j.conjunto_d = i.conjunto_o
-                                
-                                
-                            if j.nodo_destino == i.nodo_destino:
-                                j.conjunto_d = i.conjunto_o
-                            if j.nodo_origen == i.nodo_destino:
-                                j.conjunto_o = i.conjunto_o
-                        t.append(i)
-                        print("Se cambia:")
-                        print("NO: " + str(i.nodo_origen) + " --- " "ND: " + str(i.nodo_destino))    #Borrar!
-                        print("CO: " + str(i.conjunto_o) + " --- " "CD: " + str(i.conjunto_d))    #Borrar!        
-                            
-            elif i.conjunto_d == i.conjunto_o:
-                print("No se agrega!")
-
+            for nodo_b in self.Trayectoria_Adyacente(nodo_a):
+                if flag[nodo_b] is False and distancia[nodo_b] > self.Prim_ID((nodo_a, nodo_b)).atrbt["WEIGHT"]:
+                    distancia[nodo_b] = self.Prim_ID((nodo_a, nodo_b)).atrbt["WEIGHT"]
+                    paridad[nodo_b] = nodo_a
         
+        for nodo in self.num_nodos:
+            if nodo  == 124:
+                continue
+            if paridad[nodo] is not None:
+                PRIM.Producir_Aristas(aristas.Arista(paridad[nodo], nodo, {"WEIGHT": self.Prim_ID((paridad[nodo], nodo)).atrbt["WEIGHT"]}))    
         
-        self.imprimir_arbol(t)
+        return PRIM
         
-        self.guardar_kruskal(t, "KruskalTree") #Guardamos el arbol en archivo .gv
-            
-        return t    #Retornamos la lista de aristas del arbol Final 
-        
+    def Prim_ID(self,id,directed = False):
+        (nodo_init,nodo_fin) = id
+        for (init,fin) in self.num_aristas.keys():
+            if directed:
+                if (init,fin) == (nodo_init,nodo_fin):
+                    return self.num_aristas[(init,fin)]
+         
+            else:
+                if (init,fin) == (nodo_init,nodo_fin) or (init,fin) == (nodo_fin,nodo_init):
+                    return self.num_aristas[(init,fin)]
+     
+        return None
+    
+    
 
 
 
