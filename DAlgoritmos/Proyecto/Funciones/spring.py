@@ -13,7 +13,7 @@ FPS = 144
 # Parámetros del algoritmo Spring
 C1 = 1      # Constante de atracción
 C2 = 200      # Constante de repulsión
-C3 = 1   # Factor de movimiento
+C3 = 2      # Factor de movimiento
 ITERATIONS = 500  # Número de iteraciones
 
 class Graph:
@@ -129,7 +129,7 @@ def main(file_path):
 
 if __name__ == "__main__":
     # Ruta del archivo .gv
-    file_path = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\Proyecto5\\BarabasiAlbert\\Spring\\500Nodos\\BarabasiAlbert.gv"  # Reemplazar con la ruta del archivo .gv
+    file_path = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\Proyecto5\\Geografico_simple\\Spring\\100Nodos\\Geografico.gv"  # Reemplazar con la ruta del archivo .gv
     main(file_path)
 
 
