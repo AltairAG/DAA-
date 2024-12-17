@@ -10,18 +10,20 @@ NODE_COLOR = (100, 200, 255)
 EDGE_COLOR = (200, 200, 200)
 FPS = 60
 
-# Parámetros del algoritmo Spring
-C1 = 1      # Constante de atracción
-C2 = 200      # Constante de repulsión
-C3 =  1     # Factor de movimiento
+# Parámetros del algoritmo de Fruchterman-Reingold
+AREA = WIDTH * HEIGHT  # Área total de la ventana
+K = math.sqrt(AREA / 50)  # Constante para calcular fuerzas
+C = 0.7  # Factor de enfriamiento
+TEMP = WIDTH / 10  # Temperatura inicial
 ITERATIONS = 500  # Número de iteraciones
 
 class Graph:
     def __init__(self, nodes, edges):
         self.nodes = nodes
         self.edges = edges
-        self.positions = {node: [random.randint(100, WIDTH-100), random.randint(100, HEIGHT-100)] for node in nodes}
+        self.positions = {node: [random.randint(50, WIDTH-50), random.randint(50, HEIGHT-50)] for node in nodes}
         self.forces = {node: [0, 0] for node in nodes}
+        self.temperature = TEMP  # Temperatura inicial
 
     def reset_forces(self):
         """Reiniciar las fuerzas de los nodos."""
@@ -29,40 +31,48 @@ class Graph:
             self.forces[node] = [0, 0]
 
     def calculate_forces(self):
-        """Calcula las fuerzas de atracción y repulsión entre nodos."""
+        """Calcula las fuerzas atractivas y repulsivas en el grafo."""
         self.reset_forces()
 
-        # Fuerzas de repulsión entre todos los nodos
+        # Fuerzas repulsivas entre todos los nodos
         for u in self.nodes:
             for v in self.nodes:
                 if u != v:
                     dx = self.positions[u][0] - self.positions[v][0]
                     dy = self.positions[u][1] - self.positions[v][1]
-                    dist = max(math.sqrt(dx**2 + dy**2), 0.1)
-                    repulsion = C2 / dist**2
-                    self.forces[u][0] += repulsion * (dx / dist)
-                    self.forces[u][1] += repulsion * (dy / dist)
+                    dist = math.sqrt(dx**2 + dy**2) or 0.1  # Evitar división por cero
+                    repulsive_force = (K**2) / dist
+                    self.forces[u][0] += repulsive_force * (dx / dist)
+                    self.forces[u][1] += repulsive_force * (dy / dist)
 
-        # Fuerzas de atracción en las aristas
+        # Fuerzas atractivas en las aristas
         for u, v in self.edges:
             dx = self.positions[v][0] - self.positions[u][0]
             dy = self.positions[v][1] - self.positions[u][1]
-            dist = max(math.sqrt(dx**2 + dy**2), 0.1)
-            attraction = C1 * math.log(dist)
-            self.forces[u][0] += attraction * (dx / dist)
-            self.forces[u][1] += attraction * (dy / dist)
-            self.forces[v][0] -= attraction * (dx / dist)
-            self.forces[v][1] -= attraction * (dy / dist)
+            dist = math.sqrt(dx**2 + dy**2) or 0.1
+            attractive_force = (dist**2) / K
+            self.forces[u][0] += attractive_force * (dx / dist)
+            self.forces[u][1] += attractive_force * (dy / dist)
+            self.forces[v][0] -= attractive_force * (dx / dist)
+            self.forces[v][1] -= attractive_force * (dy / dist)
 
     def update_positions(self):
         """Actualiza la posición de los nodos usando las fuerzas calculadas."""
         for node in self.nodes:
-            self.positions[node][0] += C3 * self.forces[node][0]
-            self.positions[node][1] += C3 * self.forces[node][1]
+            dx = self.forces[node][0]
+            dy = self.forces[node][1]
+            dist = math.sqrt(dx**2 + dy**2) or 0.1
+
+            # Limitar el desplazamiento con la temperatura
+            self.positions[node][0] += (dx / dist) * min(abs(dx), self.temperature)
+            self.positions[node][1] += (dy / dist) * min(abs(dy), self.temperature)
 
             # Limitar las posiciones al área de la ventana
             self.positions[node][0] = min(WIDTH-50, max(50, self.positions[node][0]))
             self.positions[node][1] = min(HEIGHT-50, max(50, self.positions[node][1]))
+
+        # Reducir la temperatura gradualmente
+        self.temperature *= C
 
     def draw(self, screen):
         """Dibuja el grafo en la pantalla."""
@@ -89,6 +99,8 @@ def parse_gv_file(file_path):
             if edge_match:
                 u, v = int(edge_match.group(1)), int(edge_match.group(2))
                 edges.append((u, v))
+                nodes.add(u)
+                nodes.add(v)
     return list(nodes), edges
 
 def main(file_path):
@@ -99,7 +111,7 @@ def main(file_path):
     # Inicializar Pygame
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Spring Layout desde archivo .gv")
+    pygame.display.set_caption("Force-directed Layout (Fruchterman-Reingold)")
     clock = pygame.time.Clock()
 
     # Crear el grafo
@@ -113,7 +125,7 @@ def main(file_path):
             if event.type == pygame.QUIT:
                 running = False
 
-        # Ejecutar el algoritmo Spring
+        # Ejecutar el algoritmo Fruchterman-Reingold
         if iterations < ITERATIONS:
             graph.calculate_forces()
             graph.update_positions()
@@ -129,7 +141,5 @@ def main(file_path):
 
 if __name__ == "__main__":
     # Ruta del archivo .gv
-    file_path = "C:\\Users\\Personal\\Desktop\\Repositorio\\DAlgoritmos\\Proyecto\\Archivos\\Proyecto5\\Malla\\Spring\\500Nodos\\Malla500.gv"  
+    file_path = "graph.gv"
     main(file_path)
-
-
