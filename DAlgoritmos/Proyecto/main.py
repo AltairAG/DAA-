@@ -15,13 +15,15 @@ import random
 
 
 # Variables para los modelos
-n = 30
+n = 100
 m = 60
 p = 1
 r = 10
 d = 3
 filas = 5            #30 = 5x6      100 = 9x12       500 = 25x20
 columnas = 6
+
+
 
 
 # Malla
@@ -31,9 +33,10 @@ columnas = 6
 # arbol = grafo.DFS_I(200)                #DFSI
 # arbol = grafo.dijkstra(4)               #Dijkstra
 # arbol = grafo.kruskal()                 #Kruskal 
-# arbol = grafo.kruskalD()                   #Kruskal
-# arbol = grafo.kruskalI()                   #Kruskal
-# arbol = grafo.prim()                   #Prim
+# arbol = grafo.kruskalD()                #Kruskal
+# arbol = grafo.kruskalI()                #Kruskal
+# arbol = grafo.prim()                    #Prim
+# sprincito = grafo.spring()                #Spring
 
 
 # Erdos-Renyi
@@ -41,11 +44,11 @@ columnas = 6
 # arbol = grafo.BFS(4)                    #BFS
 # arbol = grafo.DFS_R(4)                  #DFSR
 # arbol = grafo.DFS_I(4)                  #DFSI
-# arbol = grafo.dijkstra(50)               #Dijkstra
+# arbol = grafo.dijkstra(50)              #Dijkstra
 # arbol = grafo.kruskal()                 #Kruskal
-# arbol = grafo.kruskalD()                   #Kruskal
-# arbol = grafo.kruskalI()                   #Kruskal
-# arbol = grafo.prim()                   #Prim
+# arbol = grafo.kruskalD()                #Kruskal
+# arbol = grafo.kruskalI()                #Kruskal
+# arbol = grafo.prim()                    #Prim
 
 
 # Gilbert
@@ -54,10 +57,10 @@ columnas = 6
 # arbol = grafo.DFS_R(29)                 #DFSR
 # arbol = grafo.DFS_I(15)                 #DFSI
 # arbol = grafo.dijkstra(4)               #Dijkstra
-# arbol = grafo.kruskal()                   #Kruskal #AUMENTAR LA PROBABILIDAD DE CONECCION!!
-# arbol = grafo.kruskalD()                   #Kruskal
-# arbol = grafo.kruskalI()                   #Kruskal
-# arbol = grafo.prim()                   #Prim
+# arbol = grafo.kruskal()                 #Kruskal #AUMENTAR LA PROBABILIDAD DE CONECCION!!
+# arbol = grafo.kruskalD()                #Kruskal
+# arbol = grafo.kruskalI()                #Kruskal
+# arbol = grafo.prim()                    #Prim
 
 
 # Geográfico
@@ -67,9 +70,9 @@ columnas = 6
 # arbol = grafo.DFS_R(29)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
 # arbol = grafo.kruskal()                 #Kruskal AUMENTAR LA DISTANCIA R PARA QUE SIEMPRE SE CONECTE EL GRAFO
-# arbol = grafo.kruskalD()                   #Kruskal
-# arbol = grafo.kruskalI()                   #Kruskal
-# arbol = grafo.prim()                   #Prim
+# arbol = grafo.kruskalD()                #Kruskal
+# arbol = grafo.kruskalI()                #Kruskal
+# arbol = grafo.prim()                    #Prim
 
 
 
@@ -80,20 +83,20 @@ columnas = 6
 # arbol = grafo.DFS_R(15)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
 # arbol = grafo.kruskal()                 #Kruskal
-# arbol = grafo.kruskalD()                   #Kruskal
-# arbol = grafo.kruskalI()                   #Kruskal
-# arbol = grafo.prim()                   #Prim
+# arbol = grafo.kruskalD()                #Kruskal
+# arbol = grafo.kruskalI()                #Kruskal
+# arbol = grafo.prim()                    #Prim
 
 
 # Dorogovtsev-Mendes
-# grafo = grafoDorogovtsevMendes(5)
+grafo = grafoDorogovtsevMendes(500)
 # grafo.imprimir_lista_nodos()
 # arbol = grafo.BFS(15)                   #BFS
 # arbol = grafo.DFS_I(250)                #DFSI
 # arbol = grafo.DFS_R(50)                 #DFSR
 # arbol = grafo.dijkstra(4)               #Dijkstra
-# arbol = grafo.kruskalD()                   #Kruskal
-# arbol = grafo.kruskalI()                   #Kruskal
-# arbol = grafo.prim()                   #Prim
+# arbol = grafo.kruskalD()                #Kruskal
+# arbol = grafo.kruskalI()                #Kruskal
+# arbol = grafo.prim()                    #Prim
 
 

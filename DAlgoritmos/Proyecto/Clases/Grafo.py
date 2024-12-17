@@ -7,7 +7,7 @@ import random
 from heapq import heappop, heappush
 from collections import defaultdict
 import heapq
-
+import math
 
 # Clase para representar el Grafo
 class Grafo:
@@ -547,7 +547,7 @@ class Grafo:
     def imprimir_lista_nodos(self):
         print("\nLista de Nodos:")
         for i in self.lista_nodos:
-            print(i.id, "tipo:", type(i))
+            print(i.id)
 
     def imprimir_coordenadas(self):
         for i in self.lista_nodos:
@@ -661,3 +661,44 @@ class Grafo:
                 f.write(f'  {arista.nodo_origen} -- {arista.nodo_destino};\n')
             f.write("}\n")
         print("\nArbol Kruskal Guardado!")
+        
+        
+        
+        
+
+    
+    # #Proyecto 5:
+    # def generar_cordenadas(self):
+    #     for i in self.lista_nodos:
+    #         i.x = random.randint(1, 600)
+    #         i.y = random.randint(1, 600)
+    
+    # def spring(self):
+    #     c1 = 1.5    # Atracción
+    #     c2 = 400    # Repulsión
+    #     c3 = 0.05    # Movimiento
+    #     self.generar_cordenadas()
+        
+    #     #Fuerza de repulsión
+    #     for i in self.lista_nodos:
+    #         for j in self.lista_nodos:
+    #             if i !=j:
+    #                 dx = i.x - j.y
+    #                 dy = i.y - j.x
+                    
+    #                 dist = math.sqrt(dx ** 2 + dy ** 2) or 1
+    #                 fuerza = c2 / dist
+                    
+    #                 i.fuerzax += fuerza * dx / dist
+    #                 i.fuerzay += fuerza * dy / dist
+                    
+    #     #Fuerza de Atracción
+    #     for w in self.lista_aristas:
+    #         dx = w. - w.nodoDestino.attr["X"]
+    #         dy = w.nodoOrigen.attr["Y"] - w.nodoDestino.attr["Y"]
+    #         dist = math.sqrt(dx ** 2 + dy ** 2) or 1
+    #         fuerza = -C1 * math.log(dist)
+    #         w.nodoOrigen.attr["fuerza_x"] += fuerza * dx / dist
+    #         w.nodoOrigen.attr["fuerza_y"] += fuerza * dy / dist
+    #         w.nodoDestino.attr["fuerza_x"] -= fuerza * dx / dist
+    #         w.nodoDestino.attr["fuerza_y"] -= fuerza * dy / dist
