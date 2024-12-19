@@ -36,6 +36,25 @@ def low_pass_filter(data, cutoff_freq, sample_rate):
     b, a = spsignal.butter(4, normal_cutoff, btype='low', analog=False)
     return spsignal.filtfilt(b, a, data)
 
+def slow_and_reverb(audio, sample_rate, slow_factor=0.4, reverb_decay=0.4):
+    # Aplicar el efecto "Slow" reduciendo la velocidad (interpolación lineal)
+    new_length = int(len(audio) / slow_factor)
+    slowed_audio = np.interp(
+        np.linspace(0, len(audio), new_length, endpoint=False), 
+        np.arange(len(audio)), 
+        audio
+    )
+    new_sample_rate = int(sample_rate * slow_factor)
+    
+    # Añadir el efecto "Reverb" con un filtro de retroalimentación
+    reverb_audio = np.copy(slowed_audio)
+    for i in range(1, len(reverb_audio)):
+        reverb_audio[i] += reverb_decay * reverb_audio[i - 1]
+    
+    # Normalizar para evitar saturación/clipping
+    reverb_audio = reverb_audio / np.max(np.abs(reverb_audio)) * 32767
+    return np.int16(reverb_audio), new_sample_rate
+
 # Leer archivo de audio
 def read_audio(file_path):
     sample_rate, data = wavfile.read(file_path)
@@ -85,6 +104,10 @@ if __name__ == "__main__":
     # 4. Aplicar el filtro pasabajas
     print("Aplicando filtro pasabajas...")
     filtered_signal = low_pass_filter(padded_data, cutoff_frequency, sample_rate)
+    
+    # Aplicar efecto Slow and Reverb
+    print("Aplicando efecto Slow and Reverb...")
+    processed_audio, new_sample_rate = slow_and_reverb(data, sample_rate, slow_factor=0.8, reverb_decay=0.4)
     
     # Graficar las frecuencias filtradas
     fft_filtered = fft_recursive(filtered_signal)
