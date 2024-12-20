@@ -122,3 +122,4 @@ if __name__ == "__main__":
     output_signal = np.int16(np.real(ifft_result[:N]))  # Tomamos la parte real y luego convertimos
     write_audio(output_audio, sample_rate, output_signal)
     print("Proceso completado. Archivo guardado como:", output_audio)
+#asdasdas
